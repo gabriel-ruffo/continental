@@ -1,7 +1,6 @@
 class Player():
     def __init__(self, hand_in_play, downed_hand, 
-                    wins, point_total, beginning_hands, 
-                    finishing_hands):
+                    beginning_hands, finishing_hands):
         self.hand_in_play = hand_in_play
         self.downed_hand = downed_hand
         self.wins = 0

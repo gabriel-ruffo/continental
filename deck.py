@@ -20,10 +20,8 @@ class Deck():
                 self.my_deck.append(Card(Card.suits[suit], Card.values[value]))
 
         # adds jokers to the deck
-        self.my_deck.append(Card(Card.suits[-1], Card.values[-1]))
-        self.my_deck.append(Card(Card.suits[-1], Card.values[-1]))
-        self.my_deck.append(Card(Card.suits[-1], Card.values[-1]))
-        self.my_deck.append(Card(Card.suits[-1], Card.values[-1]))
+        for _ in range(4):
+            self.my_deck.append(Card(Card.suits[-1], Card.values[-1]))
 
     def shuffle(self):
         """
