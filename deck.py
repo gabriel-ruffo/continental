@@ -2,8 +2,8 @@ from card import Card
 import random
 
 class Deck():
-    def __init__(self, my_deck):
-        self.my_deck = my_deck
+    def __init__(self):
+        self.my_deck = []
 
     def make_deck(self):
         """
@@ -13,7 +13,6 @@ class Deck():
         Parameters: None
         Returns:    None
         """
-        self.my_deck = []
         # adds all suits and values and avoids 'None' and 'JOKER'
         for suit in range(len(Card.suits) - 1):
             for value in range(len(Card.values) - 1):
@@ -39,3 +38,14 @@ class Deck():
 
     def pop(self):
         return self.my_deck.pop()
+
+    def add(self, card):
+        """
+        Method:     Add a card to the discard pile or
+                    player's hand which can be mimicked
+                    by a deck object.
+        Parameters: Card to be added to the discard pile or
+                    player's hand.
+        Returns:    None
+        """
+        self.my_deck.append(card)

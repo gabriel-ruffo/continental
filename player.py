@@ -10,10 +10,10 @@ class Player():
         self.finishing_hands = finishing_hands
 
     def increase_wins(self):
-        self.wins = self.wins + 1
+        self.wins += 1
 
     def increase_points(self, amount):
-        self.point_total = self.point_total + amount
+        self.point_total += amount
 
     def add_to_beginning_hands(self, hand):
         self.beginning_hands.append(hand)

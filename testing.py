@@ -15,7 +15,7 @@ class TestCardCreation(unittest.TestCase):
 
 class TestDeck(unittest.TestCase):
     def testDeck(self):
-        deck = Deck([])
+        deck = Deck()
         deck.make_deck()
         test_card = Card(Card.suits[-1], Card.values[-1])
         deck_card = deck.pop()
