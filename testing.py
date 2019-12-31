@@ -1,5 +1,6 @@
 import unittest
 from card import Card
+from deck import Deck
 
 class TestCardCreation(unittest.TestCase):
     def testSuits(self):
@@ -11,6 +12,14 @@ class TestCardCreation(unittest.TestCase):
         self.assertEqual(card_d.get_suit(), "DIAMONDS")
         self.assertEqual(card_s.get_suit(), "SPADES")
         self.assertEqual(card_c.get_suit(), "CLUBS")
+
+class TestDeck(unittest.TestCase):
+    def testDeck(self):
+        deck = Deck([])
+        deck.make_deck()
+        test_card = Card(Card.suits[-1], Card.values[-1])
+        deck_card = deck.pop()
+        self.assertEqual(deck_card.__str__(), test_card.__str__())
     
 
 if __name__ == '__main__': 

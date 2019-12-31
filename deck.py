@@ -37,8 +37,5 @@ class Deck():
     def __str__(self):
         return print(*self.my_deck, sep=', ')
 
-deck = Deck([])
-deck.make_deck()
-print(deck.__str__())
-deck.shuffle()
-print(deck.__str__())
+    def pop(self):
+        return self.my_deck.pop()
