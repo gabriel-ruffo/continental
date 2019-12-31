@@ -4,8 +4,8 @@ class Player():
                     finishing_hands):
         self.hand_in_play = hand_in_play
         self.downed_hand = downed_hand
-        self.wins = wins
-        self.point_total = point_total
+        self.wins = 0
+        self.point_total = 0
         self.beginning_hands = beginning_hands
         self.finishing_hands = finishing_hands
 

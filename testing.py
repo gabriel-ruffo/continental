@@ -3,18 +3,31 @@ from card import Card
 from deck import Deck
 
 class TestCardCreation(unittest.TestCase):
-    def testSuits(self):
+    def test_suits(self):
         card_h = Card(Card.suits[0], Card.values[0])
         card_d = Card(Card.suits[1], Card.values[0])
         card_s = Card(Card.suits[2], Card.values[0])
         card_c = Card(Card.suits[3], Card.values[0])
+        
         self.assertEqual(card_h.get_suit(), "HEARTS")
         self.assertEqual(card_d.get_suit(), "DIAMONDS")
         self.assertEqual(card_s.get_suit(), "SPADES")
         self.assertEqual(card_c.get_suit(), "CLUBS")
 
+class TestCardPoints(unittest.TestCase):
+    def test_points(self):
+        ace = Card(Card.suits[0], Card.values[0])
+        five_card = Card(Card.suits[0], Card.values[1])
+        ten_card = Card(Card.suits[0], Card.values[7])
+        joker = Card(Card.suits[-1], Card.values[-1])
+        
+        self.assertEqual(ace.get_points(), 20)
+        self.assertEqual(five_card.get_points(), 5)
+        self.assertEqual(ten_card.get_points(), 10)
+        self.assertEqual(joker.get_points(), 50)
+
 class TestDeck(unittest.TestCase):
-    def testDeck(self):
+    def test_deck(self):
         deck = Deck()
         deck.make_deck()
         test_card = Card(Card.suits[-1], Card.values[-1])
