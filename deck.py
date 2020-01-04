@@ -47,3 +47,11 @@ class Deck():
         Returns:    None
         """
         self.my_deck.append(card)
+
+    def is_tercia(self):
+        if len(self.my_deck) < 3:
+            return False
+            
+        for card in self.my_deck:
+            last_value = card.get_value()
+        return True

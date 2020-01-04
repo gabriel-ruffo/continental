@@ -33,6 +33,22 @@ class TestDeck(unittest.TestCase):
         test_card = Card(Card.suits[-1], Card.values[-1])
         deck_card = deck.pop()
         self.assertEqual(deck_card.__str__(), test_card.__str__())
+
+class TestTercia(unittest.TestCase):
+    def test_aces(self):
+        print("TODO")
+
+    def test_faces(self):
+        print("TODO")
+
+    def test_numbers(self):
+        print("TODO")
+
+    def test_one_joker(self):
+        print("TODO")
+
+    def test_more_than_two_jokers(self):
+        print("TODO")
     
 
 if __name__ == '__main__': 
