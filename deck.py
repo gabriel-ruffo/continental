@@ -32,23 +32,18 @@ class Deck():
         random.shuffle(self.my_deck)
 
     def deck_to_string(self):
+        # for testing purposes
         card_vals = []
         for card in self.my_deck:
             card_vals.append(card.card_to_string())
         return ', '.join(card_vals)
 
     def pop(self):
+        # self-explanatory
         return self.my_deck.pop()
 
     def add(self, card):
-        """
-        Method:     Add a card to the discard pile or
-                    player's hand which can be mimicked
-                    by a deck object.
-        Parameters: Card to be added to the discard pile or
-                    player's hand.
-        Returns:    None
-        """
+        # self-explanatory
         self.my_deck.append(card)
 
     def get_array(self):
