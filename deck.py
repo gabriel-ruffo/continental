@@ -46,9 +46,6 @@ class Deck():
         # self-explanatory
         self.my_deck.append(card)
 
-    def get_array(self):
-        return self.my_deck
-
     def deck_selection_sort(self):
         # TODO: figure out how to sort the ace
         for i in range(len(self.my_deck)):
@@ -60,7 +57,7 @@ class Deck():
 
     def get_joker_count(self):
         result = 0
-        for card in self.get_array():
+        for card in self.my_deck:
             if card.get_value() == 'JOKER':
                 result += 1
         return result
