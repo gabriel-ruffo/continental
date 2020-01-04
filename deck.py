@@ -62,15 +62,15 @@ class Deck():
                     lowest_value_index = j
             self.my_deck[i], self.my_deck[lowest_value_index] = self.my_deck[lowest_value_index], self.my_deck[i]
 
-    def is_tercia(self):
-        # initial min hand check
-        if len(self.my_deck) < 3:
-            return False
+    # def is_tercia(self):
+    #     # initial min hand check
+    #     if len(self.my_deck) < 3:
+    #         return False
 
-        # sort first TODO
-        self.deck_selection_sort()
+    #     # sort first TODO
+    #     self.deck_selection_sort()
 
-        for card in self.my_deck:
-            last_value = card.get_value()
+    #     for card in self.my_deck:
+    #         last_value = card.get_value()
 
-        return True
+    #     return True
