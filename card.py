@@ -31,8 +31,5 @@ class Card():
              return 10
 
     def card_less_than(self, other):
-        if isinstance(self.get_value(), int) and isinstance(other.get_value(), int):
-            # base case: comparing numbers 2 - 10
-            return self.get_value() < other.get_value()
-
-        return False
+        # index of values already has the order of cards
+        return self.values.index(self.get_value()) < self.values.index(other.get_value())
