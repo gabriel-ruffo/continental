@@ -55,16 +55,11 @@ class Deck():
         return self.my_deck
 
     def deck_selection_sort(self):
-        # This value of i corresponds to how many values were sorted
         for i in range(len(self.my_deck)):
-            # We assume that the first item of the unsorted segment is the smallest
             lowest_value_index = i
-            # This loop iterates over the unsorted items
             for j in range(i + 1, len(self.my_deck)):
                 if self.my_deck[j].card_less_than(self.my_deck[lowest_value_index]):
                     lowest_value_index = j
-            # Swap values of the lowest unsorted element with the first unsorted
-            # element
             self.my_deck[i], self.my_deck[lowest_value_index] = self.my_deck[lowest_value_index], self.my_deck[i]
 
     def is_tercia(self):

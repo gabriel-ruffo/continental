@@ -61,12 +61,15 @@ class TestDeck(unittest.TestCase):
         self.assertEqual(deck_card.card_to_string(), test_card.card_to_string())
 
 class TestDeckSort(unittest.TestCase):
-    def test_deck_sort(self):
+    def test_num_deck_sort(self):
         deck = Deck()
         deck.add(four)
         deck.add(two)
         deck.add(three)
-        print(deck.deck_to_string())
+        self.assertEqual(deck.deck_to_string(), "4 of HEARTS, 2 of HEARTS, 3 of HEARTS")
+
+        deck.deck_selection_sort()
+        self.assertEqual(deck.deck_to_string(), "2 of HEARTS, 3 of HEARTS, 4 of HEARTS")
 
 class TestTercia(unittest.TestCase):
     def test_aces(self):
