@@ -42,13 +42,18 @@ class Card():
         Parameters: Self object and card to be compared to.
         Returns:    
         """
+        my_value = self.get_value()
+        other_value = other.get_value()
         # low ace case
-        if self.get_value() == "ACE" and other.get_value() != "ACE":
+        if my_value == "ACE" and other_value != "ACE":
             return True
         
         # high ace case
-        if self.get_value() != "ACE" and other.get_value() == "ACE":
+        if my_value != "ACE" and other_value == "ACE":
             return True
 
         # index of values already has the order of cards
-        return self.values.index(self.get_value()) <= self.values.index(other.get_value())
+        my_value_index = self.values.index(my_value)
+        other_value_index = self.values.index(other_value)
+        
+        return my_value_index <= other_value_index
