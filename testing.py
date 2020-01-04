@@ -37,6 +37,12 @@ class TestCardCompare(unittest.TestCase):
         self.assertTrue(two.card_less_than(five))
         self.assertFalse(five.card_less_than(two))
 
+        self.assertTrue(five.card_less_than(jack))
+        self.assertFalse(jack.card_less_than(two))
+
+        self.assertTrue(jack.card_less_than(queen))
+        self.assertFalse(queen.card_less_than(jack))
+
 class TestDeck(unittest.TestCase):
     def test_deck(self):
         deck = Deck()
