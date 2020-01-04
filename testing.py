@@ -61,16 +61,26 @@ class TestDeck(unittest.TestCase):
         self.assertEqual(deck_card.card_to_string(), test_card.card_to_string())
 
 class TestDeckSort(unittest.TestCase):
-    def test_num_deck_sort(self):
+    def test_non_ace_deck_sort(self):
         deck = Deck()
-        deck.add(four)
+        deck.add(queen)
+        deck.add(ten)
         deck.add(two)
+        deck.add(four)
+        deck.add(king)
+        deck.add(nine)
+        deck.add(seven)
+        deck.add(six)
+        deck.add(jack)
         deck.add(three)
-        self.assertEqual(deck.deck_to_string(), "4 of HEARTS, 2 of HEARTS, 3 of HEARTS")
-
+        deck.add(eight)
+        deck.add(five)
+        self.assertEqual(deck.deck_to_string(), "QUEEN of HEARTS, 10 of HEARTS, 2 of HEARTS, 4 of HEARTS, KING of HEARTS, 9 of HEARTS, 7 of HEARTS, 6 of HEARTS, JACK of HEARTS, 3 of HEARTS, 8 of HEARTS, 5 of HEARTS")
+        
         deck.deck_selection_sort()
-        self.assertEqual(deck.deck_to_string(), "2 of HEARTS, 3 of HEARTS, 4 of HEARTS")
-
+        self.assertEqual(deck.deck_to_string(), "2 of HEARTS, 3 of HEARTS, 4 of HEARTS, 5 of HEARTS, 6 of HEARTS, 7 of HEARTS, 8 of HEARTS, 9 of HEARTS, 10 of HEARTS, JACK of HEARTS, QUEEN of HEARTS, KING of HEARTS")
+        
+        
 class TestTercia(unittest.TestCase):
     def test_aces(self):
         print("TODO")
