@@ -58,18 +58,20 @@ class Deck():
                     lowest_value_index = j
             self.my_deck[i], self.my_deck[lowest_value_index] = self.my_deck[lowest_value_index], self.my_deck[i]
 
+    def get_joker_count(self):
+        result = 0
+        for card in self.get_array():
+            if card.get_value() == 'JOKER':
+                result += 1
+        return result
+
     def is_tercia(self):
         # two jokers not okay for 3 hand, okay for 4+
         # initial min hand check
         if len(self.my_deck) < 3:
             return False
 
-        joker_count = 0
-        for card in self.my_deck:
-            if card.get_value() == 'JOKER':
-                joker_count += 1 
-
-        if len(self.my_deck) == 3 and joker_count > 1:
+        if len(self.my_deck) == 3 and self.get_joker_count() > 1:
             return False
 
         init = self.my_deck[0].get_value()
