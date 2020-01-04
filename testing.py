@@ -82,21 +82,81 @@ class TestDeckSort(unittest.TestCase):
         
         
 class TestTercia(unittest.TestCase):
+    def test_empty_deck(self):
+        deck = Deck()
+        self.assertFalse(deck.is_tercia())
+
+    def test_less_than_three(self):
+        deck = Deck()
+        deck.add(two)
+        deck.add(two)
+        self.assertFalse(deck.is_tercia())
+
     def test_aces(self):
-        print("TODO")
+        tdeck = Deck()
+        tdeck.add(ace)
+        tdeck.add(ace)
+        tdeck.add(ace)
+        self.assertTrue(tdeck.is_tercia())
+
+        fdeck = Deck()
+        fdeck.add(ace)
+        fdeck.add(ace)
+        fdeck.add(two)
+        self.assertFalse(fdeck.is_tercia())
 
     def test_faces(self):
-        print("TODO")
+        tdeck = Deck()
+        tdeck.add(jack)
+        tdeck.add(jack)
+        tdeck.add(jack)
+        self.assertTrue(tdeck.is_tercia())
+
+        fdeck = Deck()
+        fdeck.add(jack)
+        fdeck.add(jack)
+        fdeck.add(king)
+        self.assertFalse(fdeck.is_tercia())
 
     def test_numbers(self):
-        print("TODO")
+        tdeck = Deck()
+        tdeck.add(two)
+        tdeck.add(two)
+        tdeck.add(two)
+        self.assertTrue(tdeck.is_tercia())
+
+        fdeck = Deck()
+        fdeck.add(two)
+        fdeck.add(two)
+        fdeck.add(three)
+        self.assertFalse(fdeck.is_tercia())
 
     def test_one_joker(self):
-        print("TODO")
+        tdeck = Deck()
+        tdeck.add(two)
+        tdeck.add(two)
+        tdeck.add(joker)
+        self.assertTrue(tdeck.is_tercia())
+
+        fdeck = Deck()
+        fdeck.add(two)
+        fdeck.add(joker)
+        fdeck.add(three)
+        self.assertFalse(fdeck.is_tercia())
 
     def test_more_than_two_jokers(self):
-        print("TODO")
-    
+        tdeck = Deck()
+        tdeck.add(two)
+        tdeck.add(two)
+        tdeck.add(joker)
+        tdeck.add(joker)
+        self.assertTrue(tdeck.is_tercia())
+
+        fdeck = Deck()
+        fdeck.add(two)
+        fdeck.add(joker)
+        fdeck.add(joker)
+        self.assertFalse(fdeck.is_tercia())
 
 if __name__ == '__main__': 
     unittest.main() 
