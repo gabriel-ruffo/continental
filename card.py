@@ -31,5 +31,25 @@ class Card():
              return 10
 
     def card_less_than(self, other):
+        """
+        Method:     Compares two cards based on their index (with
+                    a couple special cases described below:
+                    Special Cases:
+                        A < 2 - KING
+                        A > 2 - KING
+                    syntax:   self.card_less_than(other)
+                    ie:       four.card_less_than(seven) -> true
+        Parameters: Self object and card to be compared to.
+        Returns:    
+        """
+
+        # low ace case
+        if self.get_value() == "ACE" and other.get_value() != "ACE":
+            return True
+        
+        # high ace case
+        if self.get_value() != "ACE" and other.get_value() == "ACE":
+            return True
+
         # index of values already has the order of cards
-        return self.values.index(self.get_value()) < self.values.index(other.get_value())
+        return self.values.index(self.get_value()) <= self.values.index(other.get_value())
