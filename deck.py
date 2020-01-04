@@ -55,6 +55,7 @@ class Deck():
         return self.my_deck
 
     def deck_selection_sort(self):
+        # TODO: figure out how to sort the ace
         for i in range(len(self.my_deck)):
             lowest_value_index = i
             for j in range(i + 1, len(self.my_deck)):
