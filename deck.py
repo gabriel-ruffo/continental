@@ -31,8 +31,11 @@ class Deck():
         """
         random.shuffle(self.my_deck)
 
-    def __str__(self):
-        return print(*self.my_deck, sep=', ')
+    def deck_to_string(self):
+        card_vals = []
+        for card in self.my_deck:
+            card_vals.append(card.card_to_string())
+        return ', '.join(card_vals)
 
     def pop(self):
         return self.my_deck.pop()
@@ -48,13 +51,31 @@ class Deck():
         """
         self.my_deck.append(card)
 
+    def get_array(self):
+        return self.my_deck
+
+    def deck_selection_sort(self):
+        # This value of i corresponds to how many values were sorted
+        for i in range(len(self.my_deck)):
+            # We assume that the first item of the unsorted segment is the smallest
+            lowest_value_index = i
+            # This loop iterates over the unsorted items
+            for j in range(i + 1, len(self.my_deck)):
+                if self.my_deck[j].card_less_than(self.my_deck[lowest_value_index]):
+                    lowest_value_index = j
+            # Swap values of the lowest unsorted element with the first unsorted
+            # element
+            self.my_deck[i], self.my_deck[lowest_value_index] = self.my_deck[lowest_value_index], self.my_deck[i]
+
     def is_tercia(self):
         # initial min hand check
         if len(self.my_deck) < 3:
             return False
 
-        # sort first
-            
+        # sort first TODO
+        self.deck_selection_sort()
+
         for card in self.my_deck:
             last_value = card.get_value()
+
         return True

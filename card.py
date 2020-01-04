@@ -6,7 +6,7 @@ class Card():
         self.suit = suit
         self.value = value
 
-    def __str__(self):
+    def card_to_string(self):
         return "{} of {}".format(self.value, self.suit)
 
     def get_suit(self):
