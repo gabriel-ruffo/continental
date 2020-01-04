@@ -40,8 +40,15 @@ class Card():
                     syntax:   self.card_less_than(other)
                     ie:       four.card_less_than(seven) -> true
         Parameters: Self object and card to be compared to.
-        Returns:    
+        Returns:    Whether or not the self value is less than
+                    the other value.
         """
+        # maybe if context cards are high -> high ace
+        # vice versa for low ace
+        # ie if hand is:
+        #   'K' '10' 'J' 'A' then ace is high
+        #   '4' '2' '3' 'A' then ace is low
+        # TODO: implement ^
         my_value = self.get_value()
         other_value = other.get_value()
         # low ace case
@@ -49,11 +56,11 @@ class Card():
             return True
         
         # high ace case
-        if my_value != "ACE" and other_value == "ACE":
-            return True
+        # if my_value != "ACE" and other_value == "ACE":
+        #     return True
 
         # index of values already has the order of cards
         my_value_index = self.values.index(my_value)
         other_value_index = self.values.index(other_value)
         
-        return my_value_index <= other_value_index
+        return my_value_index < other_value_index

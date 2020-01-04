@@ -47,7 +47,7 @@ class Deck():
         self.my_deck.append(card)
 
     def deck_selection_sort(self):
-        # TODO: figure out how to sort the ace
+        # TODO: figure out how to sort the ace; something wrong with sort method during full deck sort
         for i in range(len(self.my_deck)):
             lowest_value_index = i
             for j in range(i + 1, len(self.my_deck)):

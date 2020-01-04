@@ -79,8 +79,8 @@ class TestDeckSort(unittest.TestCase):
         
         deck.deck_selection_sort()
         self.assertEqual(deck.deck_to_string(), "2 of HEARTS, 3 of HEARTS, 4 of HEARTS, 5 of HEARTS, 6 of HEARTS, 7 of HEARTS, 8 of HEARTS, 9 of HEARTS, 10 of HEARTS, JACK of HEARTS, QUEEN of HEARTS, KING of HEARTS")
-        
-        
+
+
 class TestTercia(unittest.TestCase):
     def test_empty_deck(self):
         deck = Deck()
