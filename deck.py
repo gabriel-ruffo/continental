@@ -49,8 +49,11 @@ class Deck():
         self.my_deck.append(card)
 
     def is_tercia(self):
+        # initial min hand check
         if len(self.my_deck) < 3:
             return False
+
+        # sort first
             
         for card in self.my_deck:
             last_value = card.get_value()

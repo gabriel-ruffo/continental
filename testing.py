@@ -26,6 +26,17 @@ class TestCardPoints(unittest.TestCase):
         self.assertEqual(ten_card.get_points(), 10)
         self.assertEqual(joker.get_points(), 50)
 
+class TestCardCompare(unittest.TestCase):
+    def test_num_compare(self):
+        ace = Card(Card.suits[0], Card.values[0])
+        two = Card(Card.suits[0], Card.values[1])
+        five = Card(Card.suits[0], Card.values[4])
+        jack = Card(Card.suits[0], Card.values[10])
+        queen = Card(Card.suits[0], Card.values[11])
+
+        self.assertTrue(two.card_less_than(five))
+        self.assertFalse(five.card_less_than(two))
+
 class TestDeck(unittest.TestCase):
     def test_deck(self):
         deck = Deck()
