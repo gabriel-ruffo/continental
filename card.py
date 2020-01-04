@@ -42,7 +42,6 @@ class Card():
         Parameters: Self object and card to be compared to.
         Returns:    
         """
-
         # low ace case
         if self.get_value() == "ACE" and other.get_value() != "ACE":
             return True
