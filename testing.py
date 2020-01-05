@@ -2,6 +2,7 @@ import unittest
 from card import Card
 from deck import Deck
 from player import Player
+from game import Game
 
 # suit examples
 heart =     Card(Card.suits[0], Card.values[0])
@@ -80,7 +81,6 @@ class TestDeckSort(unittest.TestCase):
         
         deck.deck_selection_sort()
         self.assertEqual(deck.deck_to_string(), "2 of HEARTS, 3 of HEARTS, 4 of HEARTS, 5 of HEARTS, 6 of HEARTS, 7 of HEARTS, 8 of HEARTS, 9 of HEARTS, 10 of HEARTS, JACK of HEARTS, QUEEN of HEARTS, KING of HEARTS")
-
 
 class TestTercia(unittest.TestCase):
     def test_empty_deck(self):
@@ -189,6 +189,24 @@ class TestPlayer(unittest.TestCase):
 
         player.increase_points(player.get_hand_in_play())
         self.assertEqual(player.get_points(), 45)
+
+class TestGame(unittest.TestCase):
+    def test_game(self):
+        # initialize players with empty hands
+        player1 = Player(None, [], [], None)
+        player2 = Player(None, [], [], None)
+        players = []
+        players.append(player1)
+        players.append(player2)
+
+        # initialize deck
+        deck = Deck()
+        deck.make_deck()
+        deck.shuffle()
+
+        game = Game(deck, players)
+
+        game.play_next_round()
 
 if __name__ == '__main__': 
     unittest.main() 

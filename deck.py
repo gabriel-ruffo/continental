@@ -31,6 +31,11 @@ class Deck():
         """
         random.shuffle(self.my_deck)
 
+    def reinitialize(self):
+        del self.my_deck[:]
+        self.make_deck()
+        self.shuffle()
+
     def deck_to_string(self):
         # for testing purposes
         card_vals = []
