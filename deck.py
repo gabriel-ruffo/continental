@@ -62,6 +62,12 @@ class Deck():
                 result += 1
         return result
 
+    def get_points(self):
+        result = 0
+        for card in self.my_deck:
+            result += card.get_points()
+        return result
+
     def is_tercia(self):
         # two jokers not okay for 3 hand, okay for 4+
         # initial min hand check
