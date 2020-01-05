@@ -7,16 +7,24 @@ class Game:
         self.players = players
         self.current_round = 6
 
-    def play_next_round(self):
+    def setup_next_round(self):
         self.deck.reinitialize()
         self.clear_player_hands()
 
         self.deal(self.current_round)
         self.current_round += 1
+        self.play()
 
     def clear_player_hands(self):
         for player in self.players:
             player.set_downed_hand(None)
+
+    def play(self):
+        for player in self.players:
+            print("\n{}".format(player.get_hand_in_play().deck_to_string()))
+            player.get_hand_in_play().deck_selection_sort()
+            print("{}\n".format(player.get_hand_in_play().deck_to_string()))
+            
 
     def deal(self, round):
         for player in self.players:

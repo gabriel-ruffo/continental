@@ -206,7 +206,7 @@ class TestGame(unittest.TestCase):
 
         game = Game(deck, players)
 
-        game.play_next_round()
+        game.setup_next_round()
 
 if __name__ == '__main__': 
     unittest.main() 
