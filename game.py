@@ -21,10 +21,12 @@ class Game:
 
     def play(self):
         for player in self.players:
-            # DEBUG: print("\n{}".format(player.get_hand_in_play().deck_to_string()))
             player.get_hand_in_play().deck_selection_sort()
-            # DEBUG: print("{}\n".format(player.get_hand_in_play().deck_to_string()))
-            
+            print(player.get_hand_in_play().deck_to_string())
+            tercias, possibles = player.get_hand_in_play().find_tercias()
+            print("\nfor player {}:".format(self.players.index(player)))
+            print(tercias)
+            print(possibles)
 
     def deal(self, round):
         # for each player in the game

@@ -224,8 +224,8 @@ class TestFindTercias(unittest.TestCase):
         deck.add(five)
         deck.add(joker)
         tercias, possibles = deck.find_tercias()
-        print(tercias)
-        print(possibles)
+        self.assertEqual(tercias, [2, 5])
+        self.assertEqual(possibles, [3, 4])
 
 if __name__ == '__main__': 
     unittest.main() 
