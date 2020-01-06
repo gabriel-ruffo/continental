@@ -27,10 +27,12 @@ class Game:
             
 
     def deal(self, round):
+        # for each player in the game
         for player in self.players:
             temp_hand = Deck()
+            # give each player a hand of round # of cards
             for _ in range(round):
                 temp_hand.add(self.deck.pop())
-            # DEBUG: print("\nPlayer: {}\nHand: {}\n".format(player, temp_hand.deck_to_string()))
+            # give player random hand
             player.set_hand_in_play(temp_hand)
             player.add_to_beginning_hands(temp_hand)
