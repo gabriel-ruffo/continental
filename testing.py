@@ -208,5 +208,24 @@ class TestGame(unittest.TestCase):
 
         game.setup_next_round()
 
+class TestFindTercias(unittest.TestCase):
+    def test_basic_find_tercias(self):
+        deck = Deck()
+        deck.add(two)
+        deck.add(two)
+        deck.add(two)
+        deck.add(three)
+        deck.add(three)
+        deck.add(four)
+        deck.add(four)
+        deck.add(five)
+        deck.add(five)
+        deck.add(five)
+        deck.add(five)
+        deck.add(joker)
+        tercias, possibles = deck.find_tercias()
+        print(tercias)
+        print(possibles)
+
 if __name__ == '__main__': 
     unittest.main() 

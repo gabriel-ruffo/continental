@@ -21,9 +21,9 @@ class Game:
 
     def play(self):
         for player in self.players:
-            print("\n{}".format(player.get_hand_in_play().deck_to_string()))
+            # DEBUG: print("\n{}".format(player.get_hand_in_play().deck_to_string()))
             player.get_hand_in_play().deck_selection_sort()
-            print("{}\n".format(player.get_hand_in_play().deck_to_string()))
+            # DEBUG: print("{}\n".format(player.get_hand_in_play().deck_to_string()))
             
 
     def deal(self, round):

@@ -145,5 +145,19 @@ class Deck():
         for card in self.my_deck:
             if init != card.get_value() and card.get_value() != 'JOKER':
                 return False
-
         return True
+
+    def find_tercias(self):
+        already_passed = []
+        tercias = []
+        possibles = []
+        for card in self.my_deck:
+            if card in already_passed:
+                continue
+            already_passed.append(card)
+            occurrences = self.my_deck.count(card)
+            if occurrences >= 3:
+                tercias.append(card.get_value())
+            elif occurrences == 2 and self.get_joker_count() >= 1:
+                possibles.append(card.get_value())
+        return tercias, possibles
