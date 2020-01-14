@@ -1,4 +1,5 @@
 class Card():
+    # TODO: Code out Joker functionality to make the base game work first
     suits = ['HEARTS', 'DIAMONDS', 'SPADES', 'CLUBS', 'NONE']
     values = ['ACE', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'JACK', 'QUEEN', 'KING', 'JOKER']
 
