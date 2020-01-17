@@ -98,6 +98,15 @@ class Deck():
         return result
 
     def get_values_count(self, my_value):
+        """
+        Returns the number of cards that share the given value.
+        Parameters:
+            my_value (int/str): The value by which the other
+                                cards in the deck will be
+                                compared against.
+        Returns:
+            Number of matches.
+        """
         result = 0
         for card in self.my_deck:
             if card.get_value() == my_value:
@@ -107,11 +116,22 @@ class Deck():
 
     def find_tercias(self):
         """
-        Finds the number of tercias in a hand.
+        Finds the number of tercias in a hand. By first checking if
+            a value has already been looked for, it checks the
+            number of occurrences of a card. If the number is three
+            or greater, it is added to the tercias array. If it is
+            only two, it adds it to a list of possible tercias.
+        Parameters:
+            None
+        Returns:
+            Two arrays:
+                tercias: array of known tercias
+                possibles: array of possible tercias (pairs)
         """
         already_passed = []
         tercias = []
         possibles = []
+
         for card in self.my_deck:
             my_value = card.get_value()
             if my_value in already_passed:
