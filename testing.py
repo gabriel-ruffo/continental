@@ -120,13 +120,7 @@ class TestGame(unittest.TestCase):
         players.append(player1)
         players.append(player2)
 
-        # initialize deck
-        deck = Deck()
-        deck.make_deck()
-        deck.shuffle()
-
-        game = Game(deck, players)
-
+        game = Game(players)
         game.setup_next_round()
 
 class TestFindTercias(unittest.TestCase):

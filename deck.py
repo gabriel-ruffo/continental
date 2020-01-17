@@ -97,6 +97,14 @@ class Deck():
             result += card.get_points()
         return result
 
+    def get_values_count(self, my_value):
+        result = 0
+        for card in self.my_deck:
+            if card.get_value() == my_value:
+                result += 1
+        
+        return result
+
     def find_tercias(self):
         """
         Finds the number of tercias in a hand.
@@ -105,12 +113,13 @@ class Deck():
         tercias = []
         possibles = []
         for card in self.my_deck:
-            if card in already_passed:
+            my_value = card.get_value()
+            if my_value in already_passed:
                 continue
-            already_passed.append(card)
-            occurrences = self.my_deck.count(card)
+            already_passed.append(my_value)
+            occurrences = self.get_values_count(my_value)
             if occurrences >= 3:
-                tercias.append(card.get_value())
+                tercias.append(my_value)
             elif occurrences == 2:
-                possibles.append(card.get_value())
+                possibles.append(my_value)
         return tercias, possibles

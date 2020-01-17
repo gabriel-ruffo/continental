@@ -2,8 +2,8 @@ from deck import Deck
 from player import Player
 
 class Game:
-    def __init__(self, deck, players):
-        self.deck = deck
+    def __init__(self, players):
+        self.deck = Deck()
         self.players = players
         self.current_round = 6
 
