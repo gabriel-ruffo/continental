@@ -103,25 +103,17 @@ class TestPlayer(unittest.TestCase):
         dhand.add(two)
         dhand.add(two)
 
-        player = Player(bhand, bhand, fhand, dhand)
+        player = Player()
+        player.add_to_beginning_hands(bhand)
+        player.set_hand_in_play(bhand)
+        player.add_to_finishing_hands(fhand)
+        player.set_downed_hand(dhand)
 
         self.assertEqual(player.get_wins(), 0)
         self.assertEqual(player.get_points(), 0)
 
         player.increase_points(player.get_hand_in_play())
         self.assertEqual(player.get_points(), 45)
-
-class TestGame(unittest.TestCase):
-    def test_game(self):
-        # initialize players with empty hands
-        player1 = Player(None, [], [], None)
-        player2 = Player(None, [], [], None)
-        players = []
-        players.append(player1)
-        players.append(player2)
-
-        game = Game(players)
-        game.setup_next_round()
 
 class TestFindTercias(unittest.TestCase):
     def test_basic_find_tercias(self):

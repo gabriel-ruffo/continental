@@ -1,12 +1,13 @@
+from deck import Deck
+
 class Player():
-    def __init__(self, hand_in_play, beginning_hands,
-                    finishing_hands, downed_hand):
+    def __init__(self):
         self.wins = 0
         self.point_total = 0
-        self.hand_in_play = hand_in_play
-        self.beginning_hands = beginning_hands
-        self.finishing_hands = finishing_hands
-        self.downed_hand = downed_hand
+        self.hand_in_play = Deck()
+        self.beginning_hands = []
+        self.finishing_hands = []
+        self.downed_hand = []
 
     def increase_wins(self):
         self.wins += 1

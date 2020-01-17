@@ -70,8 +70,8 @@ class Game:
             player.add_to_beginning_hands(temp_hand)
 
 
-player1 = Player(None, [], [], None)
-player2 = Player(None, [], [], None)
+player1 = Player()
+player2 = Player()
 players = []
 players.append(player1)
 players.append(player2)
