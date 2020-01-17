@@ -1,7 +1,6 @@
 class Card():
-    # TODO: Code out Joker functionality to make the base game work first
-    suits = ['HEARTS', 'DIAMONDS', 'SPADES', 'CLUBS', 'NONE']
-    values = ['ACE', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'JACK', 'QUEEN', 'KING', 'JOKER']
+    suits = ['HEARTS', 'DIAMONDS', 'SPADES', 'CLUBS']
+    values = ['ACE', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'JACK', 'QUEEN', 'KING']
 
     def __init__(self, suit, value):
         """
@@ -59,8 +58,6 @@ class Card():
                 return 20
             elif value in face_values:
                 return 10
-            else:
-                return 50
         elif 2 <= value <= 7:
             return 5
         else:
@@ -89,6 +86,7 @@ class Card():
         # TODO: implement ^
         my_value = self.get_value()
         other_value = other.get_value()
+
         # low ace case
         if my_value == "ACE" and other_value != "ACE":
             return True

@@ -24,7 +24,6 @@ ten =       Card(Card.suits[0], Card.values[9])
 jack =      Card(Card.suits[0], Card.values[10])
 queen =     Card(Card.suits[0], Card.values[11])
 king =      Card(Card.suits[0], Card.values[12])
-joker =     Card(Card.suits[4], Card.values[13])
 
 class TestCardCreation(unittest.TestCase):
     def test_suits(self):        
@@ -38,7 +37,6 @@ class TestCardPoints(unittest.TestCase):
         self.assertEqual(ace.get_points(), 20)
         self.assertEqual(five.get_points(), 5)
         self.assertEqual(ten.get_points(), 10)
-        self.assertEqual(joker.get_points(), 50)
 
 class TestCardCompare(unittest.TestCase):
     def test_card_compare(self):
@@ -132,31 +130,10 @@ class TestTercia(unittest.TestCase):
         fdeck.add(three)
         self.assertFalse(fdeck.is_tercia())
 
-    def test_one_joker(self):
-        tdeck = Deck()
-        tdeck.add(two)
-        tdeck.add(two)
-        tdeck.add(joker)
-        self.assertTrue(tdeck.is_tercia())
-
         fdeck = Deck()
         fdeck.add(two)
-        fdeck.add(joker)
+        fdeck.add(four)
         fdeck.add(three)
-        self.assertFalse(fdeck.is_tercia())
-
-    def test_more_than_two_jokers(self):
-        tdeck = Deck()
-        tdeck.add(two)
-        tdeck.add(two)
-        tdeck.add(joker)
-        tdeck.add(joker)
-        self.assertTrue(tdeck.is_tercia())
-
-        fdeck = Deck()
-        fdeck.add(two)
-        fdeck.add(joker)
-        fdeck.add(joker)
         self.assertFalse(fdeck.is_tercia())
 
 class TestPlayer(unittest.TestCase):
@@ -222,7 +199,6 @@ class TestFindTercias(unittest.TestCase):
         deck.add(five)
         deck.add(five)
         deck.add(five)
-        deck.add(joker)
         tercias, possibles = deck.find_tercias()
         self.assertEqual(tercias, [2, 5])
         self.assertEqual(possibles, [3, 4])

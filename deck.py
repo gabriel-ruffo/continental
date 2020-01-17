@@ -14,19 +14,14 @@ class Deck():
         """
         Reinitializes the deck object. Goes through
             suits and values and adds them to the new
-            array, and adds four jokers.
+            array.
         Parameters: 
             None
         """
-        # adds all suits and values and avoids 'NONE' and 'JOKER'
-        for suit in range(len(Card.suits) - 1):
-            for value in range(len(Card.values) - 1):
+        for suit in range(len(Card.suits)):
+            for value in range(len(Card.values)):
                 self.my_deck.append(Card(Card.suits[suit], Card.values[value]))
                 self.my_deck.append(Card(Card.suits[suit], Card.values[value]))
-
-        # adds jokers to the deck
-        for _ in range(4):
-            self.my_deck.append(Card(Card.suits[-1], Card.values[-1]))
 
     def shuffle(self):
         """
@@ -82,27 +77,12 @@ class Deck():
         self.my_deck.append(card)
 
     def deck_selection_sort(self):
-        # TODO: figure out how to sort the ace; something wrong with sort method during full deck sort
         for i in range(len(self.my_deck)):
             lowest_value_index = i
             for j in range(i + 1, len(self.my_deck)):
                 if self.my_deck[j].card_less_than(self.my_deck[lowest_value_index]):
                     lowest_value_index = j
             self.my_deck[i], self.my_deck[lowest_value_index] = self.my_deck[lowest_value_index], self.my_deck[i]
-
-    def get_joker_count(self):
-        """
-        Determines the number of jokers in the current hand/deck.
-        Parameters:
-            None
-        Returns:
-            Number of jokers in the current hand/deck.
-        """
-        result = 0
-        for card in self.my_deck:
-            if card.get_value() == 'JOKER':
-                result += 1
-        return result
 
     def get_points(self):
         """
@@ -133,17 +113,14 @@ class Deck():
             Bool describing if given hand is a three
             of a kind.
         """
-        # two jokers not okay for 3 hand, okay for 4+
         # initial min hand check
         if len(self.my_deck) < 3:
             return False
 
-        if len(self.my_deck) == 3 and self.get_joker_count() > 1:
-            return False
-
         init = self.my_deck[0].get_value()
         for card in self.my_deck:
-            if init != card.get_value() and card.get_value() != 'JOKER':
+            # for each card, ret false if not init value
+            if init != card.get_value():
                 return False
         return True
 
@@ -158,6 +135,6 @@ class Deck():
             occurrences = self.my_deck.count(card)
             if occurrences >= 3:
                 tercias.append(card.get_value())
-            elif occurrences == 2 and self.get_joker_count() >= 1:
+            elif occurrences == 2:
                 possibles.append(card.get_value())
         return tercias, possibles
