@@ -97,34 +97,10 @@ class Deck():
             result += card.get_points()
         return result
 
-    def is_tercia(self):
-        """
-        Determines whether the current hand/deck is 
-            considered a tercia or three of a kind.
-            If the hand has less than three cards, it
-            is automatically disqualified. Otherwise,
-            if hand is sized three and there is more
-            than one Joker, hand is disqualified.
-            Otherwise, checks whether all cards in 
-            given hand are the same or Jokers.
-        Parameters:
-            None
-        Returns:
-            Bool describing if given hand is a three
-            of a kind.
-        """
-        # initial min hand check
-        if len(self.my_deck) < 3:
-            return False
-
-        init = self.my_deck[0].get_value()
-        for card in self.my_deck:
-            # for each card, ret false if not init value
-            if init != card.get_value():
-                return False
-        return True
-
     def find_tercias(self):
+        """
+        Finds the number of tercias in a hand.
+        """
         already_passed = []
         tercias = []
         possibles = []

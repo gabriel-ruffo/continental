@@ -80,62 +80,6 @@ class TestDeckSort(unittest.TestCase):
         deck.deck_selection_sort()
         self.assertEqual(deck.deck_to_string(), "2 of HEARTS, 3 of HEARTS, 4 of HEARTS, 5 of HEARTS, 6 of HEARTS, 7 of HEARTS, 8 of HEARTS, 9 of HEARTS, 10 of HEARTS, JACK of HEARTS, QUEEN of HEARTS, KING of HEARTS")
 
-class TestTercia(unittest.TestCase):
-    def test_empty_deck(self):
-        deck = Deck()
-        self.assertFalse(deck.is_tercia())
-
-    def test_less_than_three(self):
-        deck = Deck()
-        deck.add(two)
-        deck.add(two)
-        self.assertFalse(deck.is_tercia())
-
-    def test_aces(self):
-        tdeck = Deck()
-        tdeck.add(ace)
-        tdeck.add(ace)
-        tdeck.add(ace)
-        self.assertTrue(tdeck.is_tercia())
-
-        fdeck = Deck()
-        fdeck.add(ace)
-        fdeck.add(ace)
-        fdeck.add(two)
-        self.assertFalse(fdeck.is_tercia())
-
-    def test_faces(self):
-        tdeck = Deck()
-        tdeck.add(jack)
-        tdeck.add(jack)
-        tdeck.add(jack)
-        self.assertTrue(tdeck.is_tercia())
-
-        fdeck = Deck()
-        fdeck.add(jack)
-        fdeck.add(jack)
-        fdeck.add(king)
-        self.assertFalse(fdeck.is_tercia())
-
-    def test_numbers(self):
-        tdeck = Deck()
-        tdeck.add(two)
-        tdeck.add(two)
-        tdeck.add(two)
-        self.assertTrue(tdeck.is_tercia())
-
-        fdeck = Deck()
-        fdeck.add(two)
-        fdeck.add(two)
-        fdeck.add(three)
-        self.assertFalse(fdeck.is_tercia())
-
-        fdeck = Deck()
-        fdeck.add(two)
-        fdeck.add(four)
-        fdeck.add(three)
-        self.assertFalse(fdeck.is_tercia())
-
 class TestPlayer(unittest.TestCase):
     def test_increase_wins(self):
         bhand = Deck()
