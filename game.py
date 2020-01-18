@@ -1,4 +1,5 @@
 from deck import Deck
+from card import Card
 from player import Player
 from collections import Counter
 
@@ -72,11 +73,22 @@ class Game:
         print("NEW HAND :", result.deck_to_string())
         return result
 
+
+    def get_highest_value_card(self, hand):
+        highest_card = hand.my_deck[0]
+        for card in hand.my_deck[1:]:
+            if highest_card.get_points() <= card.get_points():
+                highest_card = card
+
+        return highest_card
+
     def discard(self, hand):        
         hand_copy = self.get_unnecessary_cards(hand)
-        
+        print(hand_copy.deck_to_string())
         print("\n\n")
-        return False
+
+        discard = self.get_highest_value_card(hand_copy)
+        print("DISCARD:", discard.card_to_string())
 
 
     def play(self):
