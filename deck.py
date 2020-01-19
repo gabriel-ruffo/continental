@@ -77,6 +77,15 @@ class Deck():
         self.my_deck.append(card)
 
     def deck_selection_sort(self):
+        """
+        Uses standard selection sort to sort the deck according
+            to the index in which the cards appear in the master
+            list in card.py. Does the sorting in-place, so the
+            Deck() object is changed.
+        Parameters:
+            None
+        Returns: None
+        """
         for i in range(len(self.my_deck)):
             lowest_value_index = i
             for j in range(i + 1, len(self.my_deck)):
@@ -128,18 +137,27 @@ class Deck():
                 tercias: array of known tercias
                 possibles: array of possible tercias (pairs)
         """
+        # values that have already been seen
         already_passed = []
+        # confirmed (at least) three-of-a-kinds
         tercias = []
+        # confirmed pairs
         possibles = []
 
+        # for each card in the deck
         for card in self.my_deck:
             my_value = card.get_value()
+            # continue if value has already been seen
             if my_value in already_passed:
                 continue
             already_passed.append(my_value)
+
+            # check how many times value shows up in the hand
             occurrences = self.get_values_count(my_value)
             if occurrences >= 3:
+                # confirmed tercia
                 tercias.append(my_value)
             elif occurrences == 2:
+                # possible tercia
                 possibles.append(my_value)
         return tercias, possibles
