@@ -111,3 +111,70 @@ class Player():
             None
         """
         self.finishing_hands.append(hand)
+
+    def go_down(self, round):
+        """
+        Sets the downed hand in place according to the
+            current round.
+        Parameters:
+            round: the current round.
+        Returns:
+            None
+        """
+        if round == 6:
+            tercias, _ = self.hand_in_play.find_tercias()
+            if len(tercias) == 2:
+                result = Deck()
+                for tercia in tercias:
+                    # for each tercia
+                    for card in self.hand_in_play.my_deck:
+                        # check each card in the hand in play
+                        if card.get_value() == tercia:
+                            # and add it do downed hand
+                            result.add(card)
+
+                for card in result.my_deck:
+                    # remove downed cards from hand in play
+                    self.hand_in_play.my_deck.remove(card)
+
+                self.set_downed_hand(result)
+        elif round == 7:
+            # one tercia, one run
+            return
+        elif round == 8:
+            # two runs
+            return
+        elif round == 9:
+            # three tercias
+            return
+        elif round == 10:
+            # two tercias, one run
+            return
+        elif round == 11:
+            # one tercia, two runs
+            return
+        elif round == 12:
+            # four tercias
+            return
+        # second 12: three runs, no discard
+
+    def has_gone_down(self):
+        if self.downed_hand != None:
+            return True
+        return False
+
+    def has_won(self):
+        """
+        Checks to see if the player has won the current round
+            by checking to see if they have played a hand
+            down and if they have no cards left in their hand-
+            in-play.
+        Parameters:
+            None
+        Returns:
+            Bool indicating if the player has won the current
+                round or not.
+        """
+        if self.downed_hand != None and self.hand_in_play == None:
+            return True
+        return False

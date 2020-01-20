@@ -6,7 +6,7 @@ class Card():
         """
         Constructor for Card class.
         Parameters:
-            suit (str):     The suit value of a card -- 'NONE' reserved for 'JOKER' cards.
+            suit (str):     The suit value of a card.
             value (str):    The value of a card.
         """
         self.suit = suit

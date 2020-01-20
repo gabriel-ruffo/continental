@@ -2,6 +2,7 @@ from deck import Deck
 from card import Card
 from player import Player
 from collections import Counter
+import sys
 
 class Game:
     def __init__(self, players):
@@ -62,7 +63,7 @@ class Game:
             # two tercias
             tercias, _ = hand.find_tercias()
             if len(tercias) >= 2:
-                print(tercias)
+                print("WIN TERCS:", tercias)
                 return True
             return False
         elif self.current_round == 7:
@@ -100,7 +101,7 @@ class Game:
         tercias, possibles = hand.find_tercias()
         result = Deck()
 
-        print("HAND     :", hand.deck_to_string())
+        print("\nHAND     :", hand.deck_to_string())
         print("TERCIAS  :", tercias)
         print("POSSIBLES:", possibles)
 
@@ -110,6 +111,11 @@ class Game:
             else:
                 result.add(card)
 
+        # TODO:
+        # if result is empty, all cards are necessary
+        # in which case, get rid of one extra card of
+        # tercias if tercia count is > 3 otherwise get
+        # rid of a possible
         print("NEW HAND :", result.deck_to_string())
         return result
 
@@ -133,7 +139,27 @@ class Game:
 
         return highest_card
 
-    def discard(self, hand):
+    def check_downed_hands(self, player, hand):
+        downed_hands = []
+        for player_check in self.players:
+            if player_check.get_downed_hand() != None:
+                downed_hands.append(player_check.get_downed_hand())
+
+        discarded_cards = []
+        for card_to_discard in hand.my_deck:
+            for downed_hand in downed_hands:
+                for card_to_check in downed_hand.my_deck:
+                    if card_to_check.get_value() == card_to_discard.get_value():
+                        downed_hand.add(card_to_discard)
+                        discarded_cards.append(card_to_discard)
+
+        for card in discarded_cards:
+            if card in hand:
+                hand.my_deck.remove(card)
+                
+        return
+
+    def discard(self, hand, player):
         """
         Discards the least helpful card in the current
             live hand. Uses a helper method to determine
@@ -147,12 +173,23 @@ class Game:
         Returns:
             None
         """
+        if player.has_gone_down():
+            self.check_downed_hands(player, hand)
+
         hand_copy = self.get_unnecessary_cards(hand)
-        print(hand_copy.deck_to_string())
-        print("\n\n")
+
+        # TODO: need to make sure the hand returned has at
+        #       least one card to discard
+        print("UNNECES:", hand_copy.deck_to_string())
 
         discard = self.get_highest_value_card(hand_copy)
         print("DISCARD:", discard.card_to_string())
+        print("\n\n")
+
+        # add to the discard pile
+        self.discard_pile.add(discard)
+        # remove from hand in play
+        hand.my_deck.remove(discard)
 
 
     def play(self):
@@ -171,16 +208,29 @@ class Game:
         for player in self.players:
             # hand in play was set by deal()
             hand_in_play = player.get_hand_in_play()
+
             # draw a card
+            # TODO: implement drawing from the discard pile
             hand_in_play.add(self.deck.pop())
 
             # sort the current hand
             hand_in_play.deck_selection_sort()
 
-            if self.check_win_conditions(hand_in_play):
-                print("Implement go_down()")
+            if not player.has_gone_down():
+                if self.check_win_conditions(hand_in_play):
+                    player.go_down(self.current_round)
+                    if player.has_won():
+                        print("Player {} has won this round!".format(player))
+                        sys.exit()
 
-            self.discard(hand_in_play)
+            self.discard(hand_in_play, player)
+            # TODO: after discard, see if other players 
+            #       want the discarded card
+            if player.has_won():
+                print("Player {} has won this round!".format(player))
+                # self.setup_next_round()
+
+        self.play()
 
             
     def deal(self, round):
@@ -204,11 +254,7 @@ class Game:
             player.add_to_beginning_hands(temp_hand)
 
 
-player1 = Player()
-player2 = Player()
-players = []
-players.append(player1)
-players.append(player2)
+players = [Player(), Player()]
 
 game = Game(players)
 game.setup_next_round()
