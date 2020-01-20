@@ -105,7 +105,7 @@ class Game:
         print("TERCIAS  :", tercias)
         print("POSSIBLES:", possibles)
 
-        for card in hand.my_deck:
+        for card in hand.get_deck():
             if card.get_value() in tercias or card.get_value() in possibles:
                 continue
             else:
@@ -132,8 +132,8 @@ class Game:
         Returns:
             Highest point valued card.
         """
-        highest_card = hand.my_deck[0]
-        for card in hand.my_deck[1:]:
+        highest_card = hand.get_deck()[0]
+        for card in hand.get_deck()[1:]:
             if highest_card.get_points() <= card.get_points():
                 highest_card = card
 
@@ -146,16 +146,16 @@ class Game:
                 downed_hands.append(player_check.get_downed_hand())
 
         discarded_cards = []
-        for card_to_discard in hand.my_deck:
+        for card_to_discard in hand.get_deck():
             for downed_hand in downed_hands:
-                for card_to_check in downed_hand.my_deck:
+                for card_to_check in downed_hand.get_deck():
                     if card_to_check.get_value() == card_to_discard.get_value():
                         downed_hand.add(card_to_discard)
                         discarded_cards.append(card_to_discard)
 
         for card in discarded_cards:
             if card in hand:
-                hand.my_deck.remove(card)
+                hand.get_deck().remove(card)
                 
         return
 
