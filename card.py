@@ -12,6 +12,26 @@ class Card():
         self.suit = suit
         self.value = value
 
+    def get_suits_list(self):
+        """
+        Returns list of possible suits.
+        Parameters:
+            None
+        Returns:
+            List of possible suits.
+        """
+        return self.suits
+
+    def get_values_list(self):
+        """
+        Returns list of possible values.
+        Parameters:
+            None
+        Returns:
+            List of possible values.
+        """
+        return self.values
+
     def card_to_string(self):
         """
         Returns string representation of card in 'VALUE of SUIT' format.
