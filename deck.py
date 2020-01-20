@@ -10,6 +10,27 @@ class Deck():
         """
         self.my_deck = []
 
+    def get_deck(self):
+        """
+        Returns the card list to avoid accessing private
+            variables outside of this class.
+        Parameters:
+            None
+        Returns:
+            Card list.
+        """
+        return self.my_deck
+
+    def set_deck(self, deck_to_set):
+        """
+        Sets the current deck to the given deck.
+        Parameters:
+            deck_to_set: deck to replace current one.
+        Returns:
+            None
+        """
+        self.my_deck = deck_to_set
+
     def make_deck(self):
         """
         Reinitializes the deck object. Goes through

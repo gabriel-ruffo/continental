@@ -31,12 +31,37 @@ class TestCardCreation(unittest.TestCase):
         self.assertEqual(diamond.get_suit(), "DIAMONDS")
         self.assertEqual(spade.get_suit(), "SPADES")
         self.assertEqual(club.get_suit(), "CLUBS")
+    
+    def test_values(self):
+        self.assertEqual(ace.get_value(), "ACE")
+        self.assertEqual(two.get_value(), 2)
+        self.assertEqual(three.get_value(), 3)
+        self.assertEqual(four.get_value(), 4)
+        self.assertEqual(five.get_value(), 5)
+        self.assertEqual(six.get_value(), 6)
+        self.assertEqual(seven.get_value(), 7)
+        self.assertEqual(eight.get_value(), 8)
+        self.assertEqual(nine.get_value(), 9)
+        self.assertEqual(ten.get_value(), 10)
+        self.assertEqual(jack.get_value(), "JACK")
+        self.assertEqual(queen.get_value(), "QUEEN")
+        self.assertEqual(king.get_value(), "KING")
 
 class TestCardPoints(unittest.TestCase):
     def test_points(self):        
         self.assertEqual(ace.get_points(), 20)
+        self.assertEqual(two.get_points(), 5)
+        self.assertEqual(three.get_points(), 5)
+        self.assertEqual(four.get_points(), 5)
         self.assertEqual(five.get_points(), 5)
+        self.assertEqual(six.get_points(), 5)
+        self.assertEqual(seven.get_points(), 5)
+        self.assertEqual(eight.get_points(), 10)
+        self.assertEqual(nine.get_points(), 10)
         self.assertEqual(ten.get_points(), 10)
+        self.assertEqual(jack.get_points(), 10)
+        self.assertEqual(queen.get_points(), 10)
+        self.assertEqual(king.get_points(), 10)
 
 class TestCardCompare(unittest.TestCase):
     def test_card_compare(self):
@@ -63,18 +88,10 @@ class TestDeck(unittest.TestCase):
 class TestDeckSort(unittest.TestCase):
     def test_non_ace_deck_sort(self):
         deck = Deck()
-        deck.add(queen)
-        deck.add(ten)
-        deck.add(two)
-        deck.add(four)
-        deck.add(king)
-        deck.add(nine)
-        deck.add(seven)
-        deck.add(six)
-        deck.add(jack)
-        deck.add(three)
-        deck.add(eight)
-        deck.add(five)
+        deck.set_deck([ queen, ten, two,
+                        four, king, nine,
+                        seven, six, jack,
+                        three, eight, five])
         self.assertEqual(deck.deck_to_string(), "QUEEN of HEARTS, 10 of HEARTS, 2 of HEARTS, 4 of HEARTS, KING of HEARTS, 9 of HEARTS, 7 of HEARTS, 6 of HEARTS, JACK of HEARTS, 3 of HEARTS, 8 of HEARTS, 5 of HEARTS")
         
         deck.deck_selection_sort()
@@ -83,25 +100,13 @@ class TestDeckSort(unittest.TestCase):
 class TestPlayer(unittest.TestCase):
     def test_increase_wins(self):
         bhand = Deck()
-        bhand.add(three)
-        bhand.add(three)
-        bhand.add(three)
-        bhand.add(queen)
-        bhand.add(queen)
-        bhand.add(queen)
+        bhand.set_deck([three, three, three, queen, queen, queen])
 
         fhand = Deck()
-        fhand.add(two)
-        fhand.add(two)
-        fhand.add(two)
-        fhand.add(queen)
-        fhand.add(queen)
-        fhand.add(queen)
+        fhand.set_deck([two, two, two, queen, queen, queen])
 
         dhand = Deck()
-        dhand.add(two)
-        dhand.add(two)
-        dhand.add(two)
+        dhand.set_deck([two, two, two])
 
         player = Player()
         player.add_to_beginning_hands(bhand)
@@ -118,17 +123,10 @@ class TestPlayer(unittest.TestCase):
 class TestFindTercias(unittest.TestCase):
     def test_basic_find_tercias(self):
         deck = Deck()
-        deck.add(two)
-        deck.add(two)
-        deck.add(two)
-        deck.add(three)
-        deck.add(three)
-        deck.add(four)
-        deck.add(four)
-        deck.add(five)
-        deck.add(five)
-        deck.add(five)
-        deck.add(five)
+        deck.set_deck([ two, two, two,
+                        three, three, four,
+                        four, five, five, 
+                        five, five])
         tercias, possibles = deck.find_tercias()
         self.assertEqual(tercias, [2, 5])
         self.assertEqual(possibles, [3, 4])

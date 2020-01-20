@@ -254,7 +254,7 @@ class Game:
             player.add_to_beginning_hands(temp_hand)
 
 
-players = [Player(), Player()]
+# players = [Player(), Player()]
 
-game = Game(players)
-game.setup_next_round()
+# game = Game(players)
+# game.setup_next_round()
