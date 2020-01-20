@@ -127,15 +127,15 @@ class Player():
                 result = Deck()
                 for tercia in tercias:
                     # for each tercia
-                    for card in self.hand_in_play.my_deck:
+                    for card in self.hand_in_play.get_deck():
                         # check each card in the hand in play
                         if card.get_value() == tercia:
                             # and add it do downed hand
                             result.add(card)
 
-                for card in result.my_deck:
+                for card in result.get_deck():
                     # remove downed cards from hand in play
-                    self.hand_in_play.my_deck.remove(card)
+                    self.hand_in_play.get_deck().remove(card)
 
                 self.set_downed_hand(result)
         elif round == 7:
