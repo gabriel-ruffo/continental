@@ -145,7 +145,7 @@ class Deck():
         
         return result
 
-    def new_find_tercias(self):
+    def find_tercias(self):
         # values that have already been seen
         already_passed = []
         # dict of values and counts
@@ -167,7 +167,7 @@ class Deck():
 
         return tercias
 
-    def find_tercias(self):
+    def old_find_tercias(self):
         """
         Finds the number of tercias in a hand. By first checking if
             a value has already been looked for, it checks the

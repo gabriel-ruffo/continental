@@ -61,7 +61,7 @@ class Game:
         """
         if self.current_round == 6:
             # two tercias
-            tercias, _ = hand.find_tercias()
+            tercias = hand.find_tercias()
             if len(tercias) >= 2:
                 print("WIN TERCS:", tercias)
                 return True
