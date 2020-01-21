@@ -62,10 +62,7 @@ class Game:
         if self.current_round == 6:
             # two tercias
             tercias = hand.find_tercias()
-            tercia_count = 0
-            for _, count in tercias.items():
-                if count >= 3:
-                    tercia_count += 1
+            tercia_count = hand.get_tercias_count(tercias)
 
             if tercia_count >= 2:
                 print("WIN TERCS:", tercias)

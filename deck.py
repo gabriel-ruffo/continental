@@ -166,3 +166,10 @@ class Deck():
                 tercias[current_value] = occurrences
 
         return tercias
+
+    def get_tercias_count(self, tercias):
+        tercia_count = 0
+        for _, count in tercias.items():
+            if count >= 3:
+                tercia_count += 1
+        return tercia_count
