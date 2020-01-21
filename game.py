@@ -3,6 +3,7 @@ from card import Card
 from player import Player
 from collections import Counter
 import sys
+from random import randint
 
 class Game:
     def __init__(self, players):
@@ -88,6 +89,18 @@ class Game:
             return False
         # second 12: three runs, no discard
 
+    def get_next_worst_card(self, hand):
+        # assumptions:
+        #   have all tercias and possibles in hand
+        tercias = hand.find_tercias()
+        possibles = hand.get_possibles_values(tercias)
+
+        value_to_toss = possibles[randint(0, len(possibles))]
+
+        print("VALUE TO TOSS:", value_to_toss)
+
+        return -1
+
     def get_unnecessary_cards(self, hand):
         """
         (Currently only works for tercia hands.) Finds
@@ -117,6 +130,10 @@ class Game:
         # in which case, get rid of one extra card of
         # tercias if tercia count is > 3 otherwise get
         # rid of a possible
+
+        if len(result.get_deck()) == 0:
+            result = self.get_next_worst_card(hand)
+
         print("NEW HAND :", result.deck_to_string())
         return result
 
