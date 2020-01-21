@@ -160,6 +160,17 @@ class Player():
         # second 12: three runs, no discard
 
     def has_gone_down(self):
+        """
+        Checks to see whether the current player has gone
+            down or not, meaning has played the cards
+            necessary to achieve the respective round's
+            conditions.
+        Parameters:
+            None
+        Returns:
+            Boolean indicated whether the player has gone
+                down or not.
+        """
         if self.downed_hand != None:
             return True
         return False
