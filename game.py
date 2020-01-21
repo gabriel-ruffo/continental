@@ -62,7 +62,12 @@ class Game:
         if self.current_round == 6:
             # two tercias
             tercias = hand.find_tercias()
-            if len(tercias) >= 2:
+            tercia_count = 0
+            for _, count in tercias.items():
+                if count >= 3:
+                    tercia_count += 1
+
+            if tercia_count >= 2:
                 print("WIN TERCS:", tercias)
                 return True
             return False
@@ -98,15 +103,14 @@ class Game:
         Returns:
             None
         """
-        tercias, possibles = hand.find_tercias()
+        tercias = hand.find_tercias()
         result = Deck()
 
         print("\nHAND     :", hand.deck_to_string())
         print("TERCIAS  :", tercias)
-        print("POSSIBLES:", possibles)
 
         for card in hand.get_deck():
-            if card.get_value() in tercias or card.get_value() in possibles:
+            if card.get_value() in tercias:
                 continue
             else:
                 result.add(card)
@@ -254,7 +258,7 @@ class Game:
             player.add_to_beginning_hands(temp_hand)
 
 
-# players = [Player(), Player()]
+players = [Player(), Player()]
 
-# game = Game(players)
-# game.setup_next_round()
+game = Game(players)
+game.setup_next_round()

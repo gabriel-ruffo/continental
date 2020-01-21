@@ -123,8 +123,16 @@ class Player():
             None
         """
         if round == 6:
-            tercias, _ = self.hand_in_play.find_tercias()
-            if len(tercias) == 2:
+            tercias = self.hand_in_play.find_tercias()
+
+            tercia_count = 0
+            tercia_list = []
+            for value, count in tercias.items():
+                if count >= 3:
+                    tercia_list.append(value)
+                    tercia_count += 1
+
+            if tercia_count == 2:
                 result = Deck()
                 for tercia in tercias:
                     # for each tercia
