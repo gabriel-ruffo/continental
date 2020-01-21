@@ -1,5 +1,5 @@
 from card import Card
-from random import shuffle
+from random import shuffle as r_shuffle
 
 class Deck():
     def __init__(self):
@@ -50,7 +50,7 @@ class Deck():
         Parameters:
             None
         """
-        random.shuffle(self.my_deck)
+        r_shuffle(self.my_deck)
 
     def reinitialize(self):
         """
