@@ -168,6 +168,18 @@ class Deck():
         return tercias
 
     def get_tercias_count(self, tercias):
+        """
+        Returns the count of tercias from the dictionary
+            containing values and their counts. Does so
+            by iterating through the dictionary and 
+            finding the values that have a count of 3
+            or greater.
+        Parameters:
+            tercias: Dictionary containing values and 
+                     their counts.
+        Returns:
+            Count of tercias.
+        """
         tercia_count = 0
         for _, count in tercias.items():
             if count >= 3:
