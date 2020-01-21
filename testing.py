@@ -131,5 +131,18 @@ class TestFindTercias(unittest.TestCase):
         self.assertEqual(tercias, [2, 5])
         self.assertEqual(possibles, [3, 4])
 
+    def test_find_tercias_one_full_one_poss(self):
+        deck = Deck()
+        deck.set_deck([ queen, queen, queen, 
+                        ten, ten])
+        tercias = deck.new_find_tercias()
+        self.assertEqual(tercias, {'QUEEN': 3, 10: 2})
+
+    def test_find_tercias_none(self):
+        deck = Deck()
+        deck.set_deck([ two, four, five, seven])
+        tercias = deck.new_find_tercias()
+        self.assertEqual(tercias, {})
+
 if __name__ == '__main__': 
     unittest.main() 

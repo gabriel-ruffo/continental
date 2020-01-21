@@ -93,8 +93,9 @@ class Deck():
         Adds a card to the deck.
         Parameters:
             card (Card): The card to be added
+        Returns:
+            None
         """
-        # self-explanatory
         self.my_deck.append(card)
 
     def deck_selection_sort(self):
@@ -143,6 +144,28 @@ class Deck():
                 result += 1
         
         return result
+
+    def new_find_tercias(self):
+        # values that have already been seen
+        already_passed = []
+        # dict of values and counts
+        tercias = {}
+
+        # for each card in the deck
+        for card in self.my_deck:
+            current_value = card.get_value()
+            # continue if value has already been seen
+            if current_value in already_passed:
+                continue
+            already_passed.append(current_value)
+
+            # count of how many times value shows up in the hand
+            occurrences = self.get_values_count(current_value)
+            if occurrences >= 2:
+                # if more than two, add to dict
+                tercias[current_value] = occurrences
+
+        return tercias
 
     def find_tercias(self):
         """
