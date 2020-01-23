@@ -195,6 +195,6 @@ class Player():
             Bool indicating if the player has won the current
                 round or not.
         """
-        if self.downed_hand != None and self.hand_in_play == None:
+        if self.downed_hand != None and not self.hand_in_play.get_deck():
             return True
         return False

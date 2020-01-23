@@ -242,13 +242,16 @@ class Game:
                         player.go_down(self.current_round)
                         if player.has_won():
                             round_is_over = True
-                            sys.exit()
+                            print("PLAYER {} HAS WON!".format(players.index(player) + 1))
+                            break
 
                 self.discard(hand_in_play, player)
                 # TODO: after discard, see if other players 
                 #       want the discarded card
                 if player.has_won():
                     round_is_over = True
+                    print("PLAYER {} HAS WON!".format(players.index(player) + 1))
+                    break
                     # self.setup_next_round()
                 print("\n")
             turn += 1
