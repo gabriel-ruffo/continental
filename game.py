@@ -66,7 +66,6 @@ class Game:
             tercia_count = hand.get_tercias_count(tercias)
 
             if tercia_count >= 2:
-                print("WIN TERCS:", tercias)
                 return True
             return False
         elif self.current_round == 7:
@@ -95,11 +94,9 @@ class Game:
         tercias = hand.find_tercias()
         possibles = hand.get_possibles_values(tercias)
 
-        value_to_toss = possibles[randint(0, len(possibles))]
+        value_to_toss = possibles[randint(0, len(possibles) - 1)]
 
-        print("VALUE TO TOSS:", value_to_toss)
-
-        return -1
+        return value_to_toss
 
     def get_unnecessary_cards(self, hand):
         """
@@ -116,9 +113,6 @@ class Game:
         tercias = hand.find_tercias()
         result = Deck()
 
-        print("\nHAND     :", hand.deck_to_string())
-        print("TERCIAS  :", tercias)
-
         for card in hand.get_deck():
             if card.get_value() in tercias:
                 continue
@@ -132,9 +126,12 @@ class Game:
         # rid of a possible
 
         if len(result.get_deck()) == 0:
-            result = self.get_next_worst_card(hand)
+            value_to_toss = self.get_next_worst_card(hand)
+            for card in hand.get_deck():
+                if card.get_value() == value_to_toss:
+                    result.add(card)
+                    break
 
-        print("NEW HAND :", result.deck_to_string())
         return result
 
 
@@ -198,11 +195,7 @@ class Game:
 
         # TODO: need to make sure the hand returned has at
         #       least one card to discard
-        print("UNNECES:", hand_copy.deck_to_string())
-
         discard = self.get_highest_value_card(hand_copy)
-        print("DISCARD:", discard.card_to_string())
-        print("\n\n")
 
         # add to the discard pile
         self.discard_pile.add(discard)
@@ -223,32 +216,43 @@ class Game:
         Returns: 
             None
         """
-        for player in self.players:
-            # hand in play was set by deal()
-            hand_in_play = player.get_hand_in_play()
+        round_is_over = False
+        turn = 1
+        while not round_is_over:
+            print("===============Round:{}===============".format(f'{turn:02}'))
+            for player in self.players:
+                print("\n")
+                print("PLAYER {}:".format(players.index(player) + 1))
+                # hand in play was set by deal()
+                hand_in_play = player.get_hand_in_play()
+                print("HAND: {}".format(hand_in_play.deck_to_string()))
 
-            # draw a card
-            # TODO: implement drawing from the discard pile
-            hand_in_play.add(self.deck.pop())
+                # draw a card
+                # TODO: implement drawing from the discard pile
+                draw_card = self.deck.pop()
+                print("DRAW: {}".format(draw_card.card_to_string()))
+                hand_in_play.add(draw_card)
 
-            # sort the current hand
-            hand_in_play.deck_selection_sort()
+                # sort the current hand
+                hand_in_play.deck_selection_sort()
+                print("HAND: {}".format(hand_in_play.deck_to_string()))
 
-            if not player.has_gone_down():
-                if self.check_win_conditions(hand_in_play):
-                    player.go_down(self.current_round)
-                    if player.has_won():
-                        print("Player {} has won this round!".format(player))
-                        sys.exit()
+                if not player.has_gone_down():
+                    if self.check_win_conditions(hand_in_play):
+                        player.go_down(self.current_round)
+                        if player.has_won():
+                            round_is_over = True
+                            sys.exit()
 
-            self.discard(hand_in_play, player)
-            # TODO: after discard, see if other players 
-            #       want the discarded card
-            if player.has_won():
-                print("Player {} has won this round!".format(player))
-                # self.setup_next_round()
-
-        self.play()
+                self.discard(hand_in_play, player)
+                # TODO: after discard, see if other players 
+                #       want the discarded card
+                if player.has_won():
+                    round_is_over = True
+                    # self.setup_next_round()
+                print("\n")
+            turn += 1
+            print("======================================\n\n")
 
             
     def deal(self, round):
