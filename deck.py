@@ -88,6 +88,9 @@ class Deck():
         """
         return self.my_deck.pop()
 
+    def peek(self):
+        return self.my_deck[-1]
+
     def add(self, card):
         """
         Adds a card to the deck.

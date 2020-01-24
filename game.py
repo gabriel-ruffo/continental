@@ -174,6 +174,33 @@ class Game:
                 
         return
 
+    def check_discard_pile(self, current_player):
+        for player in players:
+            if player == current_player:
+                continue
+
+            # get list of possibles for the player
+            deck = player.get_hand_in_play()
+            tercias = deck.find_tercias()
+            possibles = deck.get_possibles_values(tercias)
+
+            top_card = self.discard_pile.peek()
+            if top_card.get_value() in possibles:
+                # top card could be useful for player
+                player.get_hand_in_play().add(top_card)
+                print("PLAYER {} PICKED UP CARD: {}".format(players.index(player) + 1,\
+                                                            top_card.card_to_string()))
+                self.discard_pile.get_deck().remove(top_card)
+
+                player_index = players.index(player)
+                current_player_index = players.index(current_player)
+                if player_index < current_player_index or \
+                    (player_index - current_player_index) > 1:
+                    # if player is not next, take penalty card
+                    player.get_hand_in_play().add(self.deck.pop())
+                else:
+                    player.set_penalty(False)
+
     def discard(self, hand, player):
         """
         Discards the least helpful card in the current
@@ -201,6 +228,9 @@ class Game:
         self.discard_pile.add(discard)
         # remove from hand in play
         hand.my_deck.remove(discard)
+        print("DISCARDED:", discard.card_to_string())
+
+        self.check_discard_pile(player)
 
 
     def play(self):
@@ -228,10 +258,13 @@ class Game:
                 print("HAND: {}".format(hand_in_play.deck_to_string()))
 
                 # draw a card
-                # TODO: implement drawing from the discard pile
-                draw_card = self.deck.pop()
-                print("DRAW: {}".format(draw_card.card_to_string()))
-                hand_in_play.add(draw_card)
+                if player.get_penalty():
+                    draw_card = self.deck.pop()
+                    print("DRAW: {}".format(draw_card.card_to_string()))
+                    hand_in_play.add(draw_card)
+                    player.set_penalty(True)
+                else:
+                    print("PLAYER PICKED UP FROM DISCARD PILE.")
 
                 # sort the current hand
                 hand_in_play.deck_selection_sort()
@@ -240,14 +273,14 @@ class Game:
                 if not player.has_gone_down():
                     if self.check_win_conditions(hand_in_play):
                         player.go_down(self.current_round)
+                        print("PLAYER {} HAS GONE DOWN".format(players.index(player) + 1))
                         if player.has_won():
                             round_is_over = True
                             print("PLAYER {} HAS WON!".format(players.index(player) + 1))
                             break
 
                 self.discard(hand_in_play, player)
-                # TODO: after discard, see if other players 
-                #       want the discarded card
+
                 if player.has_won():
                     round_is_over = True
                     print("PLAYER {} HAS WON!".format(players.index(player) + 1))

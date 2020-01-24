@@ -9,6 +9,7 @@ class Player():
         self.beginning_hands = beginning_hands
         self.finishing_hands = finishing_hands
         self.downed_hand = downed_hand
+        self.penalty = True
 
     def increase_wins(self):
         """
@@ -113,6 +114,12 @@ class Player():
         """
         self.finishing_hands.append(hand)
 
+    def get_penalty(self):
+        return self.penalty
+
+    def set_penalty(self, value):
+        self.penalty = value
+
     def go_down(self, round):
         """
         Sets the downed hand in place according to the
@@ -147,6 +154,7 @@ class Player():
                     self.hand_in_play.get_deck().remove(card)
 
                 self.set_downed_hand(result)
+                print("DOWNED HAND:", result.deck_to_string())
         elif round == 7:
             # one tercia, one run
             return
