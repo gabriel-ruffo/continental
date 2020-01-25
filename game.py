@@ -154,6 +154,20 @@ class Game:
         return highest_card
 
     def check_downed_hands(self, player, hand):
+        """
+            Checks all players' downed hands to see if the
+                current player can discard an extra card there.
+                Does so by getting all the discarded cards in
+                a list. Then for each card in player's hand,
+                check against all downed hands to see if they
+                can add to them. Then gets rid of those cards
+                from the hand.
+            Parameters:
+                player: Player looking to discard cards.
+                hand: Player's current hand.
+            Returns:
+                None
+        """
         downed_hands = []
         for player_check in self.players:
             if player_check.get_downed_hand() != None:
@@ -174,6 +188,16 @@ class Game:
         return
 
     def check_discard_pile(self, current_player):
+        """
+            For each player that is not the current player,
+                get a list of their possibles. If the top
+                card of the 
+            Parameters:
+                current_player: Player not checking the 
+                                    discard pile.
+            Returns:
+                None
+        """
         for player in players:
             if player == current_player:
                 continue
@@ -231,6 +255,16 @@ class Game:
         self.check_discard_pile(player)
 
     def draw_card(self, player, hand_in_play):
+        """
+            If the player hasn't drawn from the discard pile,
+                player draws from the deck. Resets the player's
+                penalty if did draw from the discard pile.
+            Parameters:
+                player: Player to draw a card.
+                hand_in_play: Player's current hand.
+            Returns:
+                None
+        """
         if player.get_penalty():
             draw_card = self.deck.pop()
             print("DRAW: {}".format(draw_card.card_to_string()))
@@ -241,6 +275,18 @@ class Game:
             player.set_penalty(True)
 
     def check_going_down(self, player, hand_in_play):
+        """
+            Checks if the current player can do down with his/her
+                current hand. If their hand meets the round's win
+                condition, they go down. If going down makes the
+                player win, returns as such.
+            Parameters:
+                player: Player to be checked.
+                hand_in_play: Player's current hand.
+            Returns:
+                Bool containing whether or not round is over
+                    from player going down.
+        """
         if not player.has_gone_down():
             if self.check_win_conditions(hand_in_play):
                 player.go_down(self.current_round)
