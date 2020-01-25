@@ -231,6 +231,14 @@ class Game:
 
         self.check_discard_pile(player)
 
+    def draw_card(self, player, hand_in_play):
+        if player.get_penalty():
+            draw_card = self.deck.pop()
+            print("DRAW: {}".format(draw_card.card_to_string()))
+            hand_in_play.add(draw_card)
+            player.set_penalty(True)
+        else:
+            print("PLAYER PICKED UP FROM DISCARD PILE.")
 
     def play(self):
         """
@@ -257,13 +265,7 @@ class Game:
                 print("HAND: {}".format(hand_in_play.deck_to_string()))
 
                 # draw a card
-                if player.get_penalty():
-                    draw_card = self.deck.pop()
-                    print("DRAW: {}".format(draw_card.card_to_string()))
-                    hand_in_play.add(draw_card)
-                    player.set_penalty(True)
-                else:
-                    print("PLAYER PICKED UP FROM DISCARD PILE.")
+                self.draw_card(player, hand_in_play)
 
                 # sort the current hand
                 hand_in_play.deck_selection_sort()
