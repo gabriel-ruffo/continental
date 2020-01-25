@@ -235,9 +235,10 @@ class Game:
             draw_card = self.deck.pop()
             print("DRAW: {}".format(draw_card.card_to_string()))
             hand_in_play.add(draw_card)
-            player.set_penalty(True)
         else:
             print("PLAYER PICKED UP FROM DISCARD PILE.")
+            # reset player's penalty for skipping a draw step
+            player.set_penalty(True)
 
     def check_going_down(self, player, hand_in_play):
         if not player.has_gone_down():
