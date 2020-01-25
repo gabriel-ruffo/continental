@@ -14,14 +14,14 @@ class Game:
 
     def setup_next_round(self):
         """
-        Sets up the next round by reinitializing the
-            deck, emptying the discard pile, clearing
-            each player's hands, dealing them their new
-            hands, and playing that round.
-        Parameters:
-            None
-        Returns:
-            None
+            Sets up the next round by reinitializing the
+                deck, emptying the discard pile, clearing
+                each player's hands, dealing them their new
+                hands, and playing that round.
+            Parameters:
+                None
+            Returns:
+                None
         """
         # reset the deck
         self.deck.reinitialize()
@@ -36,12 +36,12 @@ class Game:
 
     def clear_player_hands(self):
         """
-        Clears each player's downed hands at the end
-            of the round.
-        Parameters:
-            None
-        Returns:
-            None
+            Clears each player's downed hands at the end
+                of the round.
+            Parameters:
+                None
+            Returns:
+                None
         """
         for player in self.players:
             player.set_downed_hand(None)
@@ -49,16 +49,16 @@ class Game:
 
     def check_win_conditions(self, hand):
         """
-        Checks if the current hand matches the current
-            round's win conditions.
-        Parameters:
-            hand: hand to check if it contains the
-                necessary cards to win the current
-                round.
-        Returns:
-            Boolean indicating whether or not that the
-                Player's hand fits the round's win
-                conditions.
+            Checks if the current hand matches the current
+                round's win conditions.
+            Parameters:
+                hand: hand to check if it contains the
+                    necessary cards to win the current
+                    round.
+            Returns:
+                Boolean indicating whether or not that the
+                    Player's hand fits the round's win
+                    conditions.
         """
         if self.current_round == 6:
             # two tercias
@@ -100,15 +100,15 @@ class Game:
 
     def get_unnecessary_cards(self, hand):
         """
-        (Currently only works for tercia hands.) Finds
-            the most unnecessary cards in the given
-            hand. Does so by first getting the current
-            tercias and possibles, then iterates through
-            the hand to add all other cards to a list.
-        Parameters:
-            hand: Hand to check for unnecessary cards.
-        Returns:
-            None
+            (Currently only works for tercia hands.) Finds
+                the most unnecessary cards in the given
+                hand. Does so by first getting the current
+                tercias and possibles, then iterates through
+                the hand to add all other cards to a list.
+            Parameters:
+                hand: Hand to check for unnecessary cards.
+            Returns:
+                None
         """
         tercias = hand.find_tercias()
         result = Deck()
@@ -124,7 +124,6 @@ class Game:
         # in which case, get rid of one extra card of
         # tercias if tercia count is > 3 otherwise get
         # rid of a possible
-
         if len(result.get_deck()) == 0:
             value_to_toss = self.get_next_worst_card(hand)
             for card in hand.get_deck():
@@ -137,15 +136,15 @@ class Game:
 
     def get_highest_value_card(self, hand):
         """
-        Get's the highest valued card from the given hand.
-            Does so by setting the first card as the
-            highest, then iterates through the rest of the
-            hand to see if any other is higher.
-        Parameter:
-            hand: Hand to check which card has the highest
-                point value.
-        Returns:
-            Highest point valued card.
+            Get's the highest valued card from the given hand.
+                Does so by setting the first card as the
+                highest, then iterates through the rest of the
+                hand to see if any other is higher.
+            Parameter:
+                hand: Hand to check which card has the highest
+                    point value.
+            Returns:
+                Highest point valued card.
         """
         highest_card = hand.get_deck()[0]
         for card in hand.get_deck()[1:]:
@@ -203,17 +202,17 @@ class Game:
 
     def discard(self, hand, player):
         """
-        Discards the least helpful card in the current
-            live hand. Uses a helper method to determine
-            the card with the highest point value. Later
-            on, will have to implement which card is
-            least useful if all cards are currently
-            being used in a possible play.
-        Parameters:
-            hand: Hand from which to get the least
-                helpful card.
-        Returns:
-            None
+            Discards the least helpful card in the current
+                live hand. Uses a helper method to determine
+                the card with the highest point value. Later
+                on, will have to implement which card is
+                least useful if all cards are currently
+                being used in a possible play.
+            Parameters:
+                hand: Hand from which to get the least
+                    helpful card.
+            Returns:
+                None
         """
         if player.has_gone_down():
             self.check_downed_hands(player, hand)
@@ -235,16 +234,16 @@ class Game:
 
     def play(self):
         """
-        Performs a Player's basic turn:
-            - Get current hand
-            - Draw a card
-            - Sort the hand
-            - Check if can go down
-            - Discard least helpful card
-        Parameters:
-            None
-        Returns: 
-            None
+            Performs a Player's basic turn:
+                - Get current hand
+                - Draw a card
+                - Sort the hand
+                - Check if can go down
+                - Discard least helpful card
+            Parameters:
+                None
+            Returns: 
+                None
         """
         round_is_over = False
         turn = 1
@@ -293,13 +292,13 @@ class Game:
             
     def deal(self, round):
         """
-        Deals out the cards to each player and sets their
-            hands in play and beginning hands.
-        Parameters:
-            round: Current round to determine how many
-                cards to hand out
-        Returns:
-            None
+            Deals out the cards to each player and sets their
+                hands in play and beginning hands.
+            Parameters:
+                round: Current round to determine how many
+                    cards to hand out
+            Returns:
+                None
         """
         # for each player in the game
         for player in self.players:

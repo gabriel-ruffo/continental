@@ -4,72 +4,72 @@ class Card():
 
     def __init__(self, suit, value):
         """
-        Constructor for Card class.
-        Parameters:
-            suit (str):     The suit value of a card.
-            value (str):    The value of a card.
+            Constructor for Card class.
+            Parameters:
+                suit (str):     The suit value of a card.
+                value (str):    The value of a card.
         """
         self.suit = suit
         self.value = value
 
     def get_suits_list(self):
         """
-        Returns list of possible suits.
-        Parameters:
-            None
-        Returns:
-            List of possible suits.
+            Returns list of possible suits.
+            Parameters:
+                None
+            Returns:
+                List of possible suits.
         """
         return self.suits
 
     def get_values_list(self):
         """
-        Returns list of possible values.
-        Parameters:
-            None
-        Returns:
-            List of possible values.
+            Returns list of possible values.
+            Parameters:
+                None
+            Returns:
+                List of possible values.
         """
         return self.values
 
     def card_to_string(self):
         """
-        Returns string representation of card in 'VALUE of SUIT' format.
-        Parameters:
-            None
-        Returns:
-            String representation of card.
+            Returns string representation of card in 'VALUE of SUIT' format.
+            Parameters:
+                None
+            Returns:
+                String representation of card.
         """
         return "{} of {}".format(self.value, self.suit)
 
     def get_suit(self):
         """
-        Returns suit value of card object.
-        Parameters:
-            None
-        Returns:
-            Suit value of card object.
+            Returns suit value of card object.
+            Parameters:
+                None
+            Returns:
+                Suit value of card object.
         """
         return self.suit
 
     def get_value(self):
         """
-        Returns value of card object.
-        Parameters:
-            None
-        Returns:
-            Value of card object.
+            Returns value of card object.
+            Parameters:
+                None
+            Returns:
+                Value of card object.
         """
         return self.value
     
     def get_points(self):
         """
-        Returns point value of card using conventional
-            Continental rules.
-        Parameters:
-            None
-        Returns:
-            Point value in int.
+            Returns point value of card using conventional
+                Continental rules.
+            Parameters:
+                None
+            Returns:
+                Point value in int.
         """
         face_values = self.values[10: 13]
         value = self.get_value()
@@ -85,18 +85,18 @@ class Card():
 
     def card_less_than(self, other):
         """
-        Compares two cards based on their index (with
-            a couple special cases described below:
-            Special Cases:
-                A < 2 - KING
-                A > 2 - KING
-            syntax:   self.card_less_than(other)
-            ie:       four.card_less_than(seven) -> true
-        Parameters:
-            Self object and card to be compared to.
-        Returns:
-            Whether or not the self value is less than
-            the other value as bool.
+            Compares two cards based on their index (with
+                a couple special cases described below:
+                Special Cases:
+                    A < 2 - KING
+                    A > 2 - KING
+                syntax:   self.card_less_than(other)
+                ie:       four.card_less_than(seven) -> true
+            Parameters:
+                Self object and card to be compared to.
+            Returns:
+                Whether or not the self value is less than
+                the other value as bool.
         """
         # maybe if context cards are high -> high ace
         # vice versa for low ace
