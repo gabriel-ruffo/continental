@@ -130,8 +130,10 @@ class Player():
             None
         """
         if round == 6:
+            # get players tercias dict
             tercias = self.hand_in_play.find_tercias()
 
+            # get the number of tercias and put em in a list
             tercia_count = 0
             tercia_list = []
             for value, count in tercias.items():
@@ -141,7 +143,7 @@ class Player():
 
             if tercia_count == 2:
                 result = Deck()
-                for tercia in tercias:
+                for tercia in tercia_list:
                     # for each tercia
                     for card in self.hand_in_play.get_deck():
                         # check each card in the hand in play
