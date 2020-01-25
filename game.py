@@ -240,6 +240,17 @@ class Game:
         else:
             print("PLAYER PICKED UP FROM DISCARD PILE.")
 
+    def check_going_down(self, player, hand_in_play):
+        if not player.has_gone_down():
+            if self.check_win_conditions(hand_in_play):
+                player.go_down(self.current_round)
+                print("PLAYER {} HAS GONE DOWN".format(players.index(player) + 1))
+                if player.has_won():
+                    print("PLAYER {} HAS WON!".format(players.index(player) + 1))
+                    return True
+                else:
+                    return False
+
     def play(self):
         """
             Performs a Player's basic turn:
@@ -271,22 +282,21 @@ class Game:
                 hand_in_play.deck_selection_sort()
                 print("HAND: {}".format(hand_in_play.deck_to_string()))
 
-                if not player.has_gone_down():
-                    if self.check_win_conditions(hand_in_play):
-                        player.go_down(self.current_round)
-                        print("PLAYER {} HAS GONE DOWN".format(players.index(player) + 1))
-                        if player.has_won():
-                            round_is_over = True
-                            print("PLAYER {} HAS WON!".format(players.index(player) + 1))
-                            break
-
+                # call logic to see if player can go down/make player go down
+                round_is_over = self.check_going_down(player, hand_in_play)
+                if round_is_over:
+                    break
+                
+                # discard a card from hand
                 self.discard(hand_in_play, player)
 
+                # check if player won by discarding
                 if player.has_won():
                     round_is_over = True
                     print("PLAYER {} HAS WON!".format(players.index(player) + 1))
                     break
                     # self.setup_next_round()
+                    
                 print("\n")
             turn += 1
             print("======================================\n\n")
