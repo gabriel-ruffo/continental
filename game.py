@@ -187,14 +187,13 @@ class Game:
             if top_card.get_value() in possibles:
                 # top card could be useful for player
                 player.get_hand_in_play().add(top_card)
-                print("PLAYER {} PICKED UP CARD: {}".format(players.index(player) + 1,\
+                print("PLAYER {} PICKED UP CARD FROM DISCARD PILE: {}".format(players.index(player) + 1,\
                                                             top_card.card_to_string()))
                 self.discard_pile.get_deck().remove(top_card)
 
                 player_index = players.index(player)
                 current_player_index = players.index(current_player)
-                if player_index < current_player_index or \
-                    (player_index - current_player_index) > 1:
+                if abs(player_index - current_player_index) > 1:
                     # if player is not next, take penalty card
                     player.get_hand_in_play().add(self.deck.pop())
                 else:
@@ -296,7 +295,7 @@ class Game:
                     print("PLAYER {} HAS WON!".format(players.index(player) + 1))
                     break
                     # self.setup_next_round()
-                    
+
                 print("\n")
             turn += 1
             print("======================================\n\n")
