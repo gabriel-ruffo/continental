@@ -211,8 +211,8 @@ class Game:
             if top_card.get_value() in possibles:
                 # top card could be useful for player
                 player.get_hand_in_play().add(top_card)
-                print("PLAYER {} PICKED UP CARD FROM DISCARD PILE: {}".format(players.index(player) + 1,\
-                                                            top_card.card_to_string()))
+                print(f"PLAYER {players.index(player) + 1} \
+                    PICKED UP CARD FROM DISCARD PILE: {top_card.card_to_string()}")
                 self.discard_pile.get_deck().remove(top_card)
 
                 player_index = players.index(player)
@@ -267,7 +267,7 @@ class Game:
         """
         if player.get_penalty():
             draw_card = self.deck.pop()
-            print("DRAW: {}".format(draw_card.card_to_string()))
+            print(f"DRAW: {draw_card.card_to_string()}")
             hand_in_play.add(draw_card)
         else:
             print("PLAYER PICKED UP FROM DISCARD PILE.")
@@ -290,9 +290,9 @@ class Game:
         if not player.has_gone_down():
             if self.check_win_conditions(hand_in_play):
                 player.go_down(self.current_round)
-                print("PLAYER {} HAS GONE DOWN".format(players.index(player) + 1))
+                print(f"PLAYER {players.index(player) + 1} HAS GONE DOWN")
                 if player.has_won():
-                    print("PLAYER {} HAS WON!".format(players.index(player) + 1))
+                    print(f"PLAYER {players.index(player) + 1} HAS WON!")
                     return True
                 else:
                     return False
@@ -313,20 +313,20 @@ class Game:
         round_is_over = False
         turn = 1
         while not round_is_over:
-            print("===============Round:{}===============".format(f'{turn:02}'))
+            print(f"===============Round:{f'{turn:02}'}===============")
             for player in self.players:
                 print("\n")
-                print("PLAYER {}:".format(players.index(player) + 1))
+                print(f"PLAYER {players.index(player) + 1}:")
                 # hand in play was set by deal()
                 hand_in_play = player.get_hand_in_play()
-                print("HAND: {}".format(hand_in_play.deck_to_string()))
+                print(f"HAND: {hand_in_play.deck_to_string()}")
 
                 # draw a card
                 self.draw_card(player, hand_in_play)
 
                 # sort the current hand
                 hand_in_play.deck_selection_sort()
-                print("HAND: {}".format(hand_in_play.deck_to_string()))
+                print(f"HAND: {hand_in_play.deck_to_string()}")
 
                 # call logic to see if player can go down/make player go down
                 round_is_over = self.check_going_down(player, hand_in_play)
@@ -339,7 +339,7 @@ class Game:
                 # check if player won by discarding
                 if player.has_won():
                     round_is_over = True
-                    print("PLAYER {} HAS WON!".format(players.index(player) + 1))
+                    print(f"PLAYER {players.index(player) + 1} HAS WON!")
                     break
                     # self.setup_next_round()
 
