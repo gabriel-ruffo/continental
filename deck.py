@@ -86,7 +86,10 @@ class Deck():
             Returns:
                 Next card in the deck.
         """
-        return self.my_deck.pop()
+        if len(self.my_deck) > 0:
+            return self.my_deck.pop()
+        else:
+            return
 
     def peek(self):
         if len(self.my_deck) > 0:

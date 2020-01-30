@@ -220,7 +220,9 @@ class Game:
             possibles = deck.get_possibles_values(tercias)
 
             top_card = self.discard_pile.peek()
-            if top_card.get_value() in possibles:
+            if not top_card:
+                return
+            elif top_card.get_value() in possibles:
                 # top card could be useful for player
                 player.get_hand_in_play().add(top_card)
                 print(f"PLAYER {self.players.index(player) + 1} PICKED UP CARD FROM DISCARD PILE: {top_card.card_to_string()}")
@@ -281,8 +283,9 @@ class Game:
         """
         if player.get_penalty():
             draw_card = self.deck.pop()
-            print(f"DRAW: {draw_card.card_to_string()}")
-            hand_in_play.add(draw_card)
+            if draw_card:
+                print(f"DRAW: {draw_card.card_to_string()}")
+                hand_in_play.add(draw_card)
         else:
             print("PLAYER PICKED UP FROM DISCARD PILE.")
             # reset player's penalty for skipping a draw step
