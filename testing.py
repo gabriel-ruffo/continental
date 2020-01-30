@@ -134,5 +134,20 @@ class TestFindTercias(unittest.TestCase):
         tercias = deck.find_tercias()
         self.assertEqual(tercias, {})
 
+class TestGameBugs(unittest.TestCase):
+    def test_two_downed_players_bug_at_discard(self):
+        p1 = Player().set_hand_in_play()
+        p2 = Player()
+        p3 = Player()
+
+        d1 = Deck([two, two, two, three, three, three, four, five])
+        d2 = Deck([four, four, six, six, ten, jack])
+        d3 = Deck([seven, seven, seven, ten, ten, ten, king, queen])
+        # players = [Player(), Player(), Player()]
+
+        # game = Game(players)
+        # game.setup_next_round()
+
+
 if __name__ == '__main__': 
     unittest.main() 

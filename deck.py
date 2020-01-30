@@ -2,13 +2,13 @@ from card import Card
 from random import shuffle as r_shuffle
 
 class Deck():
-    def __init__(self):
+    def __init__(self, my_deck=[]):
         """
             Constructor for Deck class. Creates an empty list.
             Parameters:
                 None
         """
-        self.my_deck = []
+        self.my_deck = my_deck
 
     def get_deck(self):
         """
