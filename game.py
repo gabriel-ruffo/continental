@@ -173,19 +173,29 @@ class Game:
         downed_hands = []
         for player_check in self.players:
             if player_check.get_downed_hand() != None:
-                downed_hands.append(player_check.get_downed_hand())
+                downed_hands.extend(player_check.get_downed_hand().get_deck())
 
         discarded_cards = []
-        for card_to_discard in hand.get_deck():
-            for downed_hand in downed_hands:
-                for card_to_check in downed_hand.get_deck():
-                    if card_to_check.get_value() == card_to_discard.get_value():
-                        downed_hand.add(card_to_discard)
-                        discarded_cards.append(card_to_discard)
+        add_to_downed_hand = []
+
+        for card in downed_hands:
+            if card in hand.get_deck():
+                discarded_cards.append(card)
+                add_to_downed_hand.append(card)
+
+
+        # for card_to_discard in hand.get_deck():
+        #     for downed_hand in downed_hands:
+        #         for card_to_check in downed_hand:
+        #             if card_to_check.get_value() == card_to_discard.get_value():
+        #                 add_to_downed_hand.append(card_to_discard)
+        #                 discarded_cards.append(card_to_discard)
+        #         if len(add_to_downed_hand) > 0:
+        #             downed_hand.append(add_to_downed_hand)
+        #             add_to_downed_hand = []
 
         for card in discarded_cards:
-            if card in hand:
-                hand.get_deck().remove(card)
+            hand.get_deck().remove(card)
                 
         return
 
