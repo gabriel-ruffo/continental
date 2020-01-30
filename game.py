@@ -381,9 +381,3 @@ class Game:
             # give player random hand
             player.set_hand_in_play(temp_hand)
             player.add_to_beginning_hands(temp_hand)
-
-
-players = [Player(), Player(), Player()]
-
-game = Game(players)
-game.setup_next_round()
