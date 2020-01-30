@@ -89,7 +89,10 @@ class Deck():
         return self.my_deck.pop()
 
     def peek(self):
-        return self.my_deck[-1]
+        if len(self.my_deck) > 0:
+            return self.my_deck[-1]
+        else:
+            return
 
     def add(self, card):
         """
