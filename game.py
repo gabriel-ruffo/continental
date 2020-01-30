@@ -201,7 +201,7 @@ class Game:
                 None
         """
         for player in players:
-            if player == current_player:
+            if player == current_player or player.has_gone_down():
                 continue
 
             # get list of possibles for the player
@@ -241,7 +241,10 @@ class Game:
         if player.has_gone_down():
             self.check_downed_hands(player, hand)
 
-        hand_copy = self.get_unnecessary_cards(hand)
+        if player.has_gone_down():
+            hand_copy = hand
+        else:
+            hand_copy = self.get_unnecessary_cards(hand)
 
         # TODO: need to make sure the hand returned has at
         #       least one card to discard
