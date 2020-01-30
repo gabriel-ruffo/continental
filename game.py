@@ -9,6 +9,8 @@ class Game:
     def __init__(self, players):
         self.deck = Deck()
         self.discard_pile = Deck()
+        if len(players) > 4:
+            raise ValueError("Only max players of 4")
         self.players = players
         self.current_round = 6
 
@@ -211,8 +213,7 @@ class Game:
             if top_card.get_value() in possibles:
                 # top card could be useful for player
                 player.get_hand_in_play().add(top_card)
-                print(f"PLAYER {players.index(player) + 1} \
-                    PICKED UP CARD FROM DISCARD PILE: {top_card.card_to_string()}")
+                print(f"PLAYER {players.index(player) + 1} PICKED UP CARD FROM DISCARD PILE: {top_card.card_to_string()}")
                 self.discard_pile.get_deck().remove(top_card)
 
                 player_index = players.index(player)
@@ -369,7 +370,7 @@ class Game:
             player.add_to_beginning_hands(temp_hand)
 
 
-players = [Player(), Player()]
+players = [Player(), Player(), Player()]
 
 game = Game(players)
 game.setup_next_round()
