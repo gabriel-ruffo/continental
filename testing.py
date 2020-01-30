@@ -136,7 +136,7 @@ class TestFindTercias(unittest.TestCase):
 
 class TestGameBugs(unittest.TestCase):
     def test_two_downed_players_bug_at_discard(self):
-        p1 = Player().set_hand_in_play()
+        p1 = Player()
         p2 = Player()
         p3 = Player()
 
