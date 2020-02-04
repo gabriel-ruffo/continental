@@ -69,6 +69,60 @@ def get_unnecessary_cards(hand):
         return result
 
 
+def get_highest_value_card(hand):
+        """
+            Get's the highest valued card from the given hand.
+                Does so by setting the first card as the
+                highest, then iterates through the rest of the
+                hand to see if any other is higher.
+            Parameter:
+                hand: Hand to check which card has the highest
+                    point value.
+            Returns:
+                Highest point valued card.
+        """
+        highest_card = hand.get_deck()[0]
+        for card in hand.get_deck()[1:]:
+            if highest_card.get_points() <= card.get_points():
+                highest_card = card
+
+        return highest_card
+
+
+def check_downed_hands(player, players, hand):
+        """
+            Checks all players' downed hands to see if the
+                current player can discard an extra card there.
+                Does so by getting all the discarded cards in
+                a list. Then for each card in player's hand,
+                check against all downed hands to see if they
+                can add to them. Then gets rid of those cards
+                from the hand.
+            Parameters:
+                player: Player looking to discard cards.
+                hand: Player's current hand.
+            Returns:
+                None
+        """
+        downed_hands = []
+        for player_check in players:
+            if player_check.get_downed_hand() != None:
+                downed_hands.extend(player_check.get_downed_hand().get_deck())
+
+        discarded_cards = []
+        add_to_downed_hand = []
+
+        for card in downed_hands:
+            if card in hand.get_deck():
+                discarded_cards.append(card)
+                add_to_downed_hand.append(card)
+
+        for card in discarded_cards:
+            hand.get_deck().remove(card)
+                
+        return
+
+
 def check_win_conditions(current_round, hand):
         """
             Checks if the current hand matches the current
