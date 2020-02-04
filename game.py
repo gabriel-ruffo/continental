@@ -3,7 +3,6 @@ from card import Card
 from player import Player
 from collections import Counter
 import sys
-from random import randint
 import game_controller as gc
 
 
@@ -33,55 +32,9 @@ class Game:
         gc.clear_player_hands(self.players)
         # deal out round's cards
         gc.deal(self.current_round, self.players, self.deck)
-        
+
         self.play()
         self.current_round += 1
-
-
-    def get_next_worst_card(self, hand):
-        # assumptions:
-        #   have all tercias and possibles in hand
-        tercias = hand.find_tercias()
-        possibles = hand.get_possibles_values(tercias)
-
-        value_to_toss = possibles[randint(0, len(possibles) - 1)]
-
-        return value_to_toss
-
-    def get_unnecessary_cards(self, hand):
-        """
-            (Currently only works for tercia hands.) Finds
-                the most unnecessary cards in the given
-                hand. Does so by first getting the current
-                tercias and possibles, then iterates through
-                the hand to add all other cards to a list.
-            Parameters:
-                hand: Hand to check for unnecessary cards.
-            Returns:
-                None
-        """
-        tercias = hand.find_tercias()
-        result = Deck()
-
-        for card in hand.get_deck():
-            if card.get_value() in tercias:
-                continue
-            else:
-                result.add(card)
-
-        # TODO:
-        # if result is empty, all cards are necessary
-        # in which case, get rid of one extra card of
-        # tercias if tercia count is > 3 otherwise get
-        # rid of a possible
-        if len(result.get_deck()) == 0:
-            value_to_toss = self.get_next_worst_card(hand)
-            for card in hand.get_deck():
-                if card.get_value() == value_to_toss:
-                    result.add(card)
-                    break
-
-        return result
 
 
     def get_highest_value_card(self, hand):
@@ -193,7 +146,7 @@ class Game:
         if player.has_gone_down():
             hand_copy = hand
         else:
-            hand_copy = self.get_unnecessary_cards(hand)
+            hand_copy = gc.get_unnecessary_cards(hand)
 
         # TODO: need to make sure the hand returned has at
         #       least one card to discard

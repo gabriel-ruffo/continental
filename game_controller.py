@@ -1,5 +1,7 @@
 from deck import Deck
 from player import Player
+from random import randint
+
 
 def reset_deck(deck, discard_pile):
     deck.reinitialize()
@@ -18,6 +20,53 @@ def clear_player_hands(players):
         """
         for player in players:
             player.set_downed_hand(None)
+
+
+def get_next_worst_card(hand):
+        # assumptions:
+        #   have all tercias and possibles in hand
+        tercias = hand.find_tercias()
+        possibles = hand.get_possibles_values(tercias)
+
+        value_to_toss = possibles[randint(0, len(possibles) - 1)]
+
+        return value_to_toss
+
+
+def get_unnecessary_cards(hand):
+        """
+            (Currently only works for tercia hands.) Finds
+                the most unnecessary cards in the given
+                hand. Does so by first getting the current
+                tercias and possibles, then iterates through
+                the hand to add all other cards to a list.
+            Parameters:
+                hand: Hand to check for unnecessary cards.
+            Returns:
+                None
+        """
+        tercias = hand.find_tercias()
+        result = Deck()
+
+        for card in hand.get_deck():
+            if card.get_value() in tercias:
+                continue
+            else:
+                result.add(card)
+
+        # TODO:
+        # if result is empty, all cards are necessary
+        # in which case, get rid of one extra card of
+        # tercias if tercia count is > 3 otherwise get
+        # rid of a possible
+        if len(result.get_deck()) == 0:
+            value_to_toss = get_next_worst_card(hand)
+            for card in hand.get_deck():
+                if card.get_value() == value_to_toss:
+                    result.add(card)
+                    break
+
+        return result
 
 
 def check_win_conditions(current_round, hand):
