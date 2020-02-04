@@ -4,6 +4,8 @@ from player import Player
 from collections import Counter
 import sys
 from random import randint
+import game_controller as gc
+
 
 class Game:
     def __init__(self, players):
@@ -32,7 +34,7 @@ class Game:
         # clear each player's hands
         self.clear_player_hands()
 
-        self.deal(self.current_round)
+        gc.deal(self.current_round, self.players, self.deck)
         self.play()
         self.current_round += 1
 
@@ -49,46 +51,46 @@ class Game:
             player.set_downed_hand(None)
 
 
-    def check_win_conditions(self, hand):
-        """
-            Checks if the current hand matches the current
-                round's win conditions.
-            Parameters:
-                hand: hand to check if it contains the
-                    necessary cards to win the current
-                    round.
-            Returns:
-                Boolean indicating whether or not that the
-                    Player's hand fits the round's win
-                    conditions.
-        """
-        if self.current_round == 6:
-            # two tercias
-            tercias = hand.find_tercias()
-            tercia_count = hand.get_tercias_count(tercias)
+    # def check_win_conditions(self, hand):
+    #     """
+    #         Checks if the current hand matches the current
+    #             round's win conditions.
+    #         Parameters:
+    #             hand: hand to check if it contains the
+    #                 necessary cards to win the current
+    #                 round.
+    #         Returns:
+    #             Boolean indicating whether or not that the
+    #                 Player's hand fits the round's win
+    #                 conditions.
+    #     """
+    #     if self.current_round == 6:
+    #         # two tercias
+    #         tercias = hand.find_tercias()
+    #         tercia_count = hand.get_tercias_count(tercias)
 
-            if tercia_count >= 2:
-                return True
-            return False
-        elif self.current_round == 7:
-            # one tercia, one run
-            return False
-        elif self.current_round == 8:
-            # two runs
-            return False
-        elif self.current_round == 9:
-            # three tercias
-            return False
-        elif self.current_round == 10:
-            # two tercias, one run
-            return False
-        elif self.current_round == 11:
-            # one tercia, two runs
-            return False
-        elif self.current_round == 12:
-            # four tercias
-            return False
-        # second 12: three runs, no discard
+    #         if tercia_count >= 2:
+    #             return True
+    #         return False
+    #     elif self.current_round == 7:
+    #         # one tercia, one run
+    #         return False
+    #     elif self.current_round == 8:
+    #         # two runs
+    #         return False
+    #     elif self.current_round == 9:
+    #         # three tercias
+    #         return False
+    #     elif self.current_round == 10:
+    #         # two tercias, one run
+    #         return False
+    #     elif self.current_round == 11:
+    #         # one tercia, two runs
+    #         return False
+    #     elif self.current_round == 12:
+    #         # four tercias
+    #         return False
+    #     # second 12: three runs, no discard
 
     def get_next_worst_card(self, hand):
         # assumptions:
@@ -182,17 +184,6 @@ class Game:
             if card in hand.get_deck():
                 discarded_cards.append(card)
                 add_to_downed_hand.append(card)
-
-
-        # for card_to_discard in hand.get_deck():
-        #     for downed_hand in downed_hands:
-        #         for card_to_check in downed_hand:
-        #             if card_to_check.get_value() == card_to_discard.get_value():
-        #                 add_to_downed_hand.append(card_to_discard)
-        #                 discarded_cards.append(card_to_discard)
-        #         if len(add_to_downed_hand) > 0:
-        #             downed_hand.append(add_to_downed_hand)
-        #             add_to_downed_hand = []
 
         for card in discarded_cards:
             hand.get_deck().remove(card)
@@ -305,7 +296,7 @@ class Game:
                     from player going down.
         """
         if not player.has_gone_down():
-            if self.check_win_conditions(hand_in_play):
+            if gc.check_win_conditions(self.current_round, hand_in_play):
                 player.go_down(self.current_round)
                 print(f"PLAYER {self.players.index(player) + 1} HAS GONE DOWN")
                 if player.has_won():
@@ -365,22 +356,28 @@ class Game:
             print("======================================\n\n")
 
             
-    def deal(self, round):
-        """
-            Deals out the cards to each player and sets their
-                hands in play and beginning hands.
-            Parameters:
-                round: Current round to determine how many
-                    cards to hand out
-            Returns:
-                None
-        """
-        # for each player in the game
-        for player in self.players:
-            temp_hand = Deck()
-            # give each player a hand of round # of cards
-            for _ in range(round):
-                temp_hand.add(self.deck.pop())
-            # give player random hand
-            player.set_hand_in_play(temp_hand)
-            player.add_to_beginning_hands(temp_hand)
+    # def deal(self, round):
+    #     """
+    #         Deals out the cards to each player and sets their
+    #             hands in play and beginning hands.
+    #         Parameters:
+    #             round: Current round to determine how many
+    #                 cards to hand out
+    #         Returns:
+    #             None
+    #     """
+    #     # for each player in the game
+    #     for player in self.players:
+    #         temp_hand = Deck()
+    #         # give each player a hand of round # of cards
+    #         for _ in range(round):
+    #             temp_hand.add(self.deck.pop())
+    #         # give player random hand
+    #         player.set_hand_in_play(temp_hand)
+    #         player.add_to_beginning_hands(temp_hand)
+
+
+players = [Player(), Player(), Player()]
+game = Game(players)
+
+game.setup_next_round()
