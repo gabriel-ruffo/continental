@@ -1,6 +1,24 @@
 from deck import Deck
 from player import Player
 
+def reset_deck(deck, discard_pile):
+    deck.reinitialize()
+    # empty the discard pile
+    discard_pile = Deck()
+
+
+def clear_player_hands(players):
+        """
+            Clears each player's downed hands at the end
+                of the round.
+            Parameters:
+                None
+            Returns:
+                None
+        """
+        for player in players:
+            player.set_downed_hand(None)
+
 
 def check_win_conditions(current_round, hand):
         """
