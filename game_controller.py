@@ -89,6 +89,44 @@ def get_highest_value_card(hand):
         return highest_card
 
 
+def check_discard_pile(players, discard_pile, deck, current_player):
+        """
+            For each player that is not the current player,
+                get a list of their possibles. If the top
+                card of the 
+            Parameters:
+                current_player: Player not checking the 
+                                    discard pile.
+            Returns:
+                None
+        """
+        for player in players:
+            if player == current_player or player.has_gone_down():
+                continue
+
+            # get list of possibles for the player
+            deck = player.get_hand_in_play()
+            tercias = deck.find_tercias()
+            possibles = deck.get_possibles_values(tercias)
+
+            top_card = discard_pile.peek()
+            if not top_card:
+                return
+            elif top_card.get_value() in possibles:
+                # top card could be useful for player
+                player.get_hand_in_play().add(top_card)
+                print(f"PLAYER {players.index(player) + 1} PICKED UP CARD FROM DISCARD PILE: {top_card.card_to_string()}")
+                discard_pile.get_deck().remove(top_card)
+
+                player_index = players.index(player)
+                current_player_index = players.index(current_player)
+                if abs(player_index - current_player_index) > 1:
+                    # if player is not next, take penalty card
+                    player.get_hand_in_play().add(deck.pop())
+                else:
+                    player.set_penalty(False)
+
+
 def check_downed_hands(player, players, hand):
         """
             Checks all players' downed hands to see if the
@@ -163,6 +201,28 @@ def check_win_conditions(current_round, hand):
             # four tercias
             return False
         # second 12: three runs, no discard
+
+
+def draw_card(deck, player, hand_in_play):
+        """
+            If the player hasn't drawn from the discard pile,
+                player draws from the deck. Resets the player's
+                penalty if did draw from the discard pile.
+            Parameters:
+                player: Player to draw a card.
+                hand_in_play: Player's current hand.
+            Returns:
+                None
+        """
+        if player.get_penalty():
+            draw_card = deck.pop()
+            if draw_card:
+                print(f"DRAW: {draw_card.card_to_string()}")
+                hand_in_play.add(draw_card)
+        else:
+            print("PLAYER PICKED UP FROM DISCARD PILE.")
+            # reset player's penalty for skipping a draw step
+            player.set_penalty(True)
 
 
 def deal(round, players, deck):
