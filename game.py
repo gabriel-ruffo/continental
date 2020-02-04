@@ -72,30 +72,6 @@ class Game:
         gc.check_discard_pile(self.players, self.discard_pile, self.deck, player)
 
 
-    def check_going_down(self, player, hand_in_play):
-        """
-            Checks if the current player can do down with his/her
-                current hand. If their hand meets the round's win
-                condition, they go down. If going down makes the
-                player win, returns as such.
-            Parameters:
-                player: Player to be checked.
-                hand_in_play: Player's current hand.
-            Returns:
-                Bool containing whether or not round is over
-                    from player going down.
-        """
-        if not player.has_gone_down():
-            if gc.check_win_conditions(self.current_round, hand_in_play):
-                player.go_down(self.current_round)
-                print(f"PLAYER {self.players.index(player) + 1} HAS GONE DOWN")
-                if player.has_won():
-                    print(f"PLAYER {self.players.index(player) + 1} HAS WON!")
-                    return True
-                else:
-                    return False
-
-
     def play(self):
         """
             Performs a Player's basic turn:
@@ -128,7 +104,7 @@ class Game:
                 print(f"HAND: {hand_in_play.deck_to_string()}")
 
                 # call logic to see if player can go down/make player go down
-                round_is_over = self.check_going_down(player, hand_in_play)
+                round_is_over = gc.check_going_down(self.current_round, self.players, player, hand_in_play)
                 if round_is_over:
                     break
                 

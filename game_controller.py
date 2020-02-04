@@ -161,6 +161,30 @@ def check_downed_hands(player, players, hand):
         return
 
 
+def check_going_down(current_round, players, player, hand_in_play):
+        """
+            Checks if the current player can do down with his/her
+                current hand. If their hand meets the round's win
+                condition, they go down. If going down makes the
+                player win, returns as such.
+            Parameters:
+                player: Player to be checked.
+                hand_in_play: Player's current hand.
+            Returns:
+                Bool containing whether or not round is over
+                    from player going down.
+        """
+        if not player.has_gone_down():
+            if check_win_conditions(current_round, hand_in_play):
+                player.go_down(current_round)
+                print(f"PLAYER {players.index(player) + 1} HAS GONE DOWN")
+                if player.has_won():
+                    print(f"PLAYER {players.index(player) + 1} HAS WON!")
+                    return True
+                else:
+                    return False
+
+
 def check_win_conditions(current_round, hand):
         """
             Checks if the current hand matches the current
